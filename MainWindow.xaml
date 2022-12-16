@@ -1,0 +1,38 @@
+﻿<Window x:Class="SWD_WPF_Project.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Height="720" Width="1280" ResizeMode="NoResize" AllowsTransparency="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent">
+    <Border Background="#F2F3F5" MouseDown="Border_MouseDown">
+        <Grid>
+
+            <Grid x:Name="sidebar_pnl" HorizontalAlignment="Left" Width="300" Background="#1E313E">
+
+                <StackPanel x:Name="sidebar_stpnl">
+                    <Grid Height="90">
+                        <Button Grid.Column="0" x:Name="sidebar_logoBtn" Style="{StaticResource navbarLogoBtn}">
+                            <Icon:PackIconMaterial Kind="Fire" Width="40" Height="40"/>
+                        </Button>
+                    </Grid>
+
+                    <Separator Margin="20" Height="1" Background="{StaticResource accentLightDarkBrush}"/>
+
+                    <StackPanel>
+                        <RadioButton x:Name="sidebar__homeBtn" Style="{StaticResource navbarBtn}">
+                            <Icon:PackIconMaterial Kind="Home" Width="30" Height="30"/>
+                        </RadioButton>
+                        <RadioButton x:Name="sidebar__ordersBtn" Style="{StaticResource navbarBtn}">
+                            <Icon:PackIconMaterial Kind="ViewList" Width="30" Height="30"/>
+                        </RadioButton>
+                        <RadioButton x:Name="sidebar__reportBtn" Style="{StaticResource navbarBtn}">
+                            <Icon:PackIconMaterial Kind="GoogleAnalytics" Width="30" Height="30"/>
+                        </RadioButton>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+            
+        </Grid>
+    </Border>
+</Window>

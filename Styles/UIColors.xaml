@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="accentColor">#0079D1</Color>
+    <Color x:Key="accentLightColor">#BDE3FF</Color>
+    <Color x:Key="accentDarkColor">#1E313E</Color>
+    <Color x:Key="accentLightDarkColor">#2F4C61</Color>
+    <Color x:Key="primaryColor">#1B2126</Color>
+    <Color x:Key="primaryLightColor">#5E5E5E</Color>
+    <Color x:Key="strokeColor">#D7D7D7</Color>
+    <Color x:Key="bgLightColor">#F2F3F5</Color>
+    <Color x:Key="bgDarkColor">#9E9E9E</Color>
+
+    <SolidColorBrush x:Key="accentBrush" Color="{StaticResource accentColor}"/>
+    <SolidColorBrush x:Key="accentLightBrush" Color="{StaticResource accentLightColor}"/>
+    <SolidColorBrush x:Key="accentDarkBrush" Color="{StaticResource accentDarkColor}"/>
+    <SolidColorBrush x:Key="accentLightDarkBrush" Color="{StaticResource accentLightDarkColor}"/>
+    <SolidColorBrush x:Key="primaryBrush" Color="{StaticResource primaryColor}"/>
+    <SolidColorBrush x:Key="primaryLightBrush" Color="{StaticResource primaryLightColor}"/>
+    <SolidColorBrush x:Key="strokeBrush" Color="{StaticResource strokeColor}"/>
+    <SolidColorBrush x:Key="bgLightBrush" Color="{StaticResource bgLightColor}"/>
+    <SolidColorBrush x:Key="bgDarkBrush" Color="{StaticResource bgDarkColor}"/>
+
+
+</ResourceDictionary>
