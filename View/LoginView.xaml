@@ -5,13 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:SWD_WPF_Project.View"
+        xmlns:viewModel ="clr-namespace:SWD_WPF_Project.ViewModels"
+        xmlns:customcontrols="clr-namespace:SWD_WPF_Project.CustomControls"
         mc:Ignorable="d"
         Title="LoginView" Height="600" Width="1000"
         WindowStyle="None" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        MouseDown="Window_MouseDown"
         Background="Transparent">
 
+    <Window.DataContext>
+        <viewModel:LoginViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+    </Window.Resources>
+    
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BoolToVisibility}"/>
+    </Window.Visibility>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -45,7 +58,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Column="0" Background="White">
+            <Grid x:Name="windowControlBar" MouseLeftButtonDown="windowControlBar_MouseLeftButtonDown" Grid.Column="0" Background="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="25"/>
@@ -53,11 +66,11 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="1" Name="buttonMinimize" Click="buttonMinimize_Click" Style="{StaticResource buttonTopPanel}">
-                    <Icon:PackIconMaterial Kind="WindowMinimize" Foreground="{StaticResource accentBrush}" Width="15" Height="15"/>
+                    <Icon:PackIconMaterial Kind="WindowMinimize" Width="15" Height="15"/>
                 </Button>
 
                 <Button Grid.Column="2" Name="buttonClose" Click="buttonClose_Click" Style="{StaticResource buttonTopPanel}">
-                    <Icon:PackIconMaterialDesign Kind="Close" Foreground="{StaticResource accentBrush}" Width="15" Height="15"/>
+                    <Icon:PackIconMaterialDesign Kind="Close" Width="15" Height="15"/>
                 </Button>
             </Grid>
 
@@ -69,34 +82,42 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" x:Name="inputEmailTitle" Text="Email" Style="{StaticResource inputLabel}"/>
+                        <TextBlock Grid.Row="0" x:Name="inputEmailTitle" Text="Логин" Style="{StaticResource inputLabel}"/>
                         <Border Grid.Row="1" Style="{StaticResource inputBorder}">
                             <Grid>
-                                <TextBlock x:Name="placeholderEmail" MouseDown="placeholderEmail_MouseDown" Text="name@email.com" Style="{StaticResource placeholderText}"/>
-                                <TextBox x:Name="textEmail" TextChanged="textEmail_TextChanged" Style="{StaticResource inputTextField}"/>
+                                <!--<TextBlock x:Name="placeholderEmail" MouseDown="placeholderEmail_MouseDown" Text="ivanIvanov" Style="{StaticResource placeholderText}"/>-->
+                                <TextBox x:Name="textEmail" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource inputLoginTextField}"/>
                             </Grid>
                         </Border>
                     </Grid>
-                
+
                     <Grid Margin="0 20 0 0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                    
+
                         <TextBlock Grid.Row="0" x:Name="inputPassTitle" Text="Пароль" Style="{StaticResource inputLabel}"/>
+
+                        <!--<customcontrols:BindablePasswordBox Grid.Row="1" Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding Path=IsViewVisible}">
+                            
+                        </customcontrols:BindablePasswordBox>-->
+
                         <Border Grid.Row="1" Style="{StaticResource inputBorder}">
                             <Grid>
-                                <TextBlock x:Name="placeholderPass" MouseDown="placeholderPass_MouseDown" Text="минимум 8 символов" Style="{StaticResource placeholderText}"/>
-                                <PasswordBox x:Name="textPass" PasswordChanged="textPass_PasswordChanged" Style="{StaticResource inputPassField}"/>
-                                <ToggleButton x:Name="buttonPassVisibility" Width="20" Height="20" HorizontalAlignment="Right" Foreground="{StaticResource primaryLightBrush}" Background="Transparent" BorderThickness="0" BorderBrush="Transparent" Margin="0 0 8 0">
+                                <!--<TextBlock x:Name="placeholderPass" MouseDown="placeholderPass_MouseDown" Text="минимум 8 символов" Style="{StaticResource placeholderText}"/>-->
+                                <!--<PasswordBox x:Name="textPass" Password="{Binding Password}" PasswordChanged="textPass_PasswordChanged" Style="{StaticResource inputPassField}"/>-->
+
+                                <customcontrols:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></customcontrols:BindablePasswordBox>
+
+                                <ToggleButton x:Name="buttonPassVisibility" Width="20" Height="20" HorizontalAlignment="Right" Foreground="{StaticResource primaryLightBrush}" Background="Transparent" BorderThickness="0" BorderBrush="Transparent" Margin="0 0 8 0" Command="{Binding ShowPasswordCommand}">
                                     <Icon:PackIconMaterialDesign Kind="Visibility"/>
                                 </ToggleButton>
                             </Grid>
                         </Border>
                     </Grid>
 
-                    <Button Margin="0 20 0 0" Style="{StaticResource buttonBigPrimary}">Войти</Button>
+                    <Button Command="{Binding LoginCommand}" Margin="0 20 0 0" Style="{StaticResource buttonLoginBigPrimary}">Войти</Button>
                 </StackPanel>
             </Border>
         </Grid>

@@ -3,14 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SWD_WPF_Project"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             StartupUri="View/LoginView.xaml">
+             StartupUri="View/MainView.xaml">
     <Application.Resources>
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Styles/UIColors.xaml"/>
-                <ResourceDictionary Source="/Styles/UIInputs.xaml"/>
-                <ResourceDictionary Source="/Styles/UIButtons.xaml"/>
+                <ResourceDictionary Source="/Style/UIColors.xaml"/>
+                <ResourceDictionary Source="/Style/UIInputs.xaml"/>
+                <ResourceDictionary Source="/Style/UIButtons.xaml"/>
+                <ResourceDictionary Source="/Style/UIText.xaml"/>
+                <ResourceDictionary Source="/Style/UIMisc.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

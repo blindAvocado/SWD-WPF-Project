@@ -1,0 +1,108 @@
+﻿<Window x:Class="SWD_WPF_Project.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:SWD_WPF_Project.View"
+        xmlns:viewModel="clr-namespace:SWD_WPF_Project.ViewModels"
+        mc:Ignorable="d"
+        Title="MainView" Height="720" Width="1280"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:OrdersViewModel}">
+            <local:OrdersView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:ReportsViewModel}">
+            <local:ReportsView/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="85"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Panel.ZIndex="10">
+                <Grid Margin="-10 0 0 10">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="65"/>
+                        <RowDefinition Height="65"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="65"/>
+                    </Grid.RowDefinitions>
+                    <!--Logo-->
+                    <Grid Grid.Row="0">
+                        <Icon:PackIconMaterialDesign Kind="Whatshot" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    </Grid>
+
+                    <RadioButton Grid.Row="1" ClipToBounds="False" x:Name="ordersButton" Style="{StaticResource navbarBtn}" IsChecked="True" Command="{Binding ShowOrdersViewCommand}">
+                        <Icon:PackIconMaterialDesign Kind="ViewList" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </RadioButton>
+
+                    <RadioButton Grid.Row="2" ClipToBounds="False" x:Name="reportsButton" Style="{StaticResource navbarBtn}" Command="{Binding ShowReportsViewCommand}">
+                        <Icon:PackIconMaterialDesign Kind="Assessment" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </RadioButton>
+
+                    <RadioButton Grid.Row="4" ClipToBounds="False" x:Name="logoutButton" Style="{StaticResource navbarBtn}" VerticalAlignment="Bottom">
+                        <Icon:PackIconMaterialDesign Kind="ExitToApp" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </RadioButton>
+                </Grid>
+            </Grid>
+            <Grid Width="75" HorizontalAlignment="Left" Background="{StaticResource accentDarkBrush}">
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="-10 0 0 0" Background="White">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="windowControlBar" Grid.Row="0" Background="{StaticResource accentBrush }" MouseLeftButtonDown="windowControlBar_MouseLeftButtonDown" MouseEnter="windowControlBar_MouseEnter">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="45"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding HeaderTitle}" Style="{StaticResource titleControlBar}"/>
+
+                    <Button x:Name="btnMinimize" Grid.Column="1" Style="{StaticResource buttonControlBar}" Click="btnMinimize_Click">
+                        <Icon:PackIconMaterial Kind="WindowMinimize" Width="15" Height="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+
+                    <Button x:Name="btnMaximize" Grid.Column="2" Style="{StaticResource buttonControlBar}" Click="btnMaximize_Click">
+                        <Icon:PackIconMaterial Kind="WindowMaximize" Width="15" Height="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+
+                    <Button x:Name="btnClose" Grid.Column="3" Style="{StaticResource buttonControlBar}" Click="btnClose_Click">
+                        <Icon:PackIconMaterialDesign Kind="Close" Width="15" Height="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+
+                </Grid>
+                 
+                <ContentControl Content="{Binding CurrentChildView}" Grid.Row="1">
+                        
+                </ContentControl>
+                
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>
