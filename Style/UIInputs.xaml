@@ -54,7 +54,7 @@
         <Setter Property="Foreground" Value="{StaticResource primaryBrush}"/>
     </Style>
 
-    <Style x:Key="inputTextField" TargetType="TextBox">
+    <Style x:Key="inputSearchField" TargetType="TextBox">
         <Setter Property="FontFamily" Value="Calibri"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontWeight" Value="Light"/>
@@ -65,6 +65,18 @@
         <Setter Property="Foreground" Value="{StaticResource primaryBrush}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <!--<Setter Property="VerticalAlignment" Value="Center"/>-->
+    </Style>
+
+    <Style x:Key="inputTextFieldWindow" TargetType="TextBox">
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
 </ResourceDictionary>

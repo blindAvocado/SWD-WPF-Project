@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Color x:Key="accentColor">#0079D1</Color>
+    <Color x:Key="accentHoverColor">#3ca0e8</Color>
     <Color x:Key="accentLightColor">#BDE3FF</Color>
     <Color x:Key="accentDarkColor">#1E313E</Color>
     <Color x:Key="accentLightDarkColor">#2F4C61</Color>
@@ -12,6 +13,7 @@
     <Color x:Key="bgDarkColor">#9E9E9E</Color>
 
     <SolidColorBrush x:Key="accentBrush" Color="{StaticResource accentColor}"/>
+    <SolidColorBrush x:Key="accentHoverBrush" Color="{StaticResource accentHoverColor}"/>
     <SolidColorBrush x:Key="accentLightBrush" Color="{StaticResource accentLightColor}"/>
     <SolidColorBrush x:Key="accentDarkBrush" Color="{StaticResource accentDarkColor}"/>
     <SolidColorBrush x:Key="accentLightDarkBrush" Color="{StaticResource accentLightDarkColor}"/>

@@ -18,7 +18,7 @@
                 <!--Search bar-->
                 <Border Style="{StaticResource inputBorder}">
                     <Grid>
-                        <TextBox x:Name="textSearchOrder" Width="400" Style="{StaticResource inputTextField}"/>
+                        <TextBox x:Name="textSearchOrder" Width="400" Style="{StaticResource inputSearchField}"/>
                         <Button Height="20" Width="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
                             <Icon:PackIconMaterialDesign Kind="Search" Foreground="{StaticResource primaryBrush}" />
                         </Button>
@@ -88,10 +88,61 @@
                     <Button x:Name="buttonCopyRowInfo" Style="{StaticResource buttonSmallSecondary}" Margin="10 0 0 0">
                         <Icon:PackIconMaterial Kind="ContentCopy"/>
                     </Button>
+
+                    <Button x:Name="buttonEditRow" Style="{StaticResource buttonSmallSecondary}" Margin="10 0 0 0">
+                        <Icon:PackIconMaterialDesign Kind="Edit"/>
+                    </Button>
                 </StackPanel>
 
-                <DataGrid Grid.Row="2">
-                    
+                <DataGrid Grid.Row="2" x:Name="ordersDataGrid" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn CanUserResize="False" Width="auto">
+                            <DataGridCheckBoxColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <CheckBox/>
+                                </DataTemplate>
+                            </DataGridCheckBoxColumn.HeaderTemplate>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridTextColumn Header="Номер заказа" IsReadOnly="True" CanUserResize="False" Width="auto"/>
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Icon:PackIconMaterialDesign Kind="DateRange"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="Статус" Width="auto"/>
+                        
+                        <DataGridTextColumn Header="Товары" Width="*"/>
+                        
+                        <DataGridTextColumn Header="Клиент" Width="*"/>
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Icon:PackIconMaterialDesign Kind="Payment"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="Адрес забора" Width="*"/>
+
+                        <DataGridTextColumn Header="Адрес доставки" Width="*"/>
+                        
+                        <DataGridTextColumn Header="Дата и время доставки" Width="*"/>
+
+                        <DataGridTemplateColumn Width="*">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Icon:PackIconMaterialDesign Kind="Message"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </Border>

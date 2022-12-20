@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SWD_WPF_Project"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             StartupUri="View/MainView.xaml">
+             StartupUri="View/OrderCreateEditView.xaml">
     <Application.Resources>
 
         <ResourceDictionary>
@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="/Style/UIButtons.xaml"/>
                 <ResourceDictionary Source="/Style/UIText.xaml"/>
                 <ResourceDictionary Source="/Style/UIMisc.xaml"/>
+                <ResourceDictionary Source="/Style/UIDataGrid.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
