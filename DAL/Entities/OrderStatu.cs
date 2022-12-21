@@ -1,4 +1,4 @@
-namespace DAL
+namespace DAL.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -6,10 +6,10 @@ namespace DAL
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class OrderStatus
+    public partial class OrderStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderStatus()
+        public OrderStatu()
         {
             Orders = new HashSet<Order>();
         }

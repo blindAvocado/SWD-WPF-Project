@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+using DAL.Entities;
 
 namespace DAL
 {
@@ -19,7 +20,7 @@ namespace DAL
         public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<OrderContent> OrderContents { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderStatus> OrderStatus { get; set; }
+        public virtual DbSet<OrderStatu> OrderStatus { get; set; }
         public virtual DbSet<Transport> Transports { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -47,7 +48,7 @@ namespace DAL
                 .HasForeignKey(e => e.order_orderContent)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<OrderStatus>()
+            modelBuilder.Entity<OrderStatu>()
                 .HasMany(e => e.Orders)
                 .WithRequired(e => e.OrderStatu)
                 .HasForeignKey(e => e.status_order)

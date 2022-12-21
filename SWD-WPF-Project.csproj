@@ -183,6 +183,7 @@
     <Compile Include="Models\ClientModel.cs" />
     <Compile Include="Models\CourierModel.cs" />
     <Compile Include="Models\ManagerModel.cs" />
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\OrderContent.cs" />
     <Compile Include="Models\OrderStatusModel.cs" />

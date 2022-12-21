@@ -1,4 +1,4 @@
-namespace DAL
+namespace DAL.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -17,12 +17,19 @@ namespace DAL
         [Key]
         public int id_order { get; set; }
 
-        public DateTime date_order { get; set; }
+        public DateTime createdDate_order { get; set; }
 
         public int client_order { get; set; }
 
         [Required]
-        public string address_order { get; set; }
+        [StringLength(50)]
+        public string pickupAddress_order { get; set; }
+
+        public DateTime pickupDate_order { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string deliveryAddress_order { get; set; }
 
         public DateTime deliveryDate_order { get; set; }
 
@@ -41,7 +48,7 @@ namespace DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderContent> OrderContents { get; set; }
 
-        public virtual OrderStatus OrderStatu { get; set; }
+        public virtual OrderStatu OrderStatu { get; set; }
 
         public virtual Transport Transport { get; set; }
     }
