@@ -2,11 +2,14 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:SWD_WPF_Project.ViewModels"
              xmlns:local="clr-namespace:SWD_WPF_Project.View"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             d:DataContext="{d:DesignInstance Type=vm:OrdersViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="680" d:DesignWidth="1200">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -26,7 +29,7 @@
                 </Border>
 
                 <!--Add new order Button-->
-                <Button x:Name="buttonCreateOrder" Style="{StaticResource buttonBigPrimary}" Margin="10 0 0 0">
+                <Button x:Name="buttonCreateOrder" Command="{Binding ShowCreateOrderDialog}" Style="{StaticResource buttonBigPrimary}" Margin="10 0 0 0">
                     <DockPanel Margin="10pt 5pt" >
                         <Icon:PackIconMaterialDesign Kind="Add" Width="10" Height="10" VerticalAlignment="Center"/>
                         <TextBlock Text="Новый заказ" Style="{StaticResource textBigPrimaryButton}" Margin="2 0 0 0"/>
@@ -47,28 +50,28 @@
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <!--Tab Button-->
                     <Grid>
-                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Content="Все заказы">
+                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowAllOrders}" Content="Все заказы" IsChecked="True">
                         </RadioButton>
                         <Border Style="{StaticResource countElementsTab}">
-                            <TextBlock x:Name="textAllOrdersTabCount" Style="{StaticResource countElementsTabText}" Text="123"/>
+                            <TextBlock x:Name="textAllOrdersTabCount" Style="{StaticResource countElementsTabText}" Text="{Binding AllOrders.Count}"/>
                         </Border>
                     </Grid>
 
                     <!--Tab Button-->
                     <Grid>
-                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Content="Готовы к доставке">
+                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowReadyOrders}"  Content="Готовы к доставке">
                         </RadioButton>
                         <Border Style="{StaticResource countElementsTab}">
-                            <TextBlock x:Name="textReadyOrdersTabCount" Style="{StaticResource countElementsTabText}" Text="123"/>
+                            <TextBlock x:Name="textReadyOrdersTabCount" Style="{StaticResource countElementsTabText}" Text="{Binding ReadyOrders.Count}"/>
                         </Border>
                     </Grid>
 
                     <!--Tab Button-->
                     <Grid>
-                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Content="Ожидает забора">
+                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowWaitingOrders}" Content="Ожидает забора">
                         </RadioButton>
                         <Border Style="{StaticResource countElementsTab}">
-                            <TextBlock x:Name="textWaitingTabCount" Style="{StaticResource countElementsTabText}" Text="123"/>
+                            <TextBlock x:Name="textWaitingTabCount" Style="{StaticResource countElementsTabText}" Text="{Binding WaitingOrders.Count}"/>
                         </Border>
                     </Grid>
                 </StackPanel>
@@ -94,7 +97,7 @@
                     </Button>
                 </StackPanel>
 
-                <DataGrid Grid.Row="2" x:Name="ordersDataGrid" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}">
+                <DataGrid Grid.Row="2" x:Name="ordersDataGrid" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=CurrentCollection}">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn CanUserResize="False" Width="auto">
                             <DataGridCheckBoxColumn.HeaderTemplate>
@@ -104,7 +107,7 @@
                             </DataGridCheckBoxColumn.HeaderTemplate>
                         </DataGridCheckBoxColumn>
 
-                        <DataGridTextColumn Header="Номер заказа" IsReadOnly="True" CanUserResize="False" Width="auto"/>
+                        <DataGridTextColumn Header="Номер заказа" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding ID}"/>
 
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.HeaderTemplate>
@@ -112,13 +115,18 @@
                                     <Icon:PackIconMaterialDesign Kind="DateRange"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding CreatedDate, StringFormat=d}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Статус" Width="auto"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding StatusName}" Width="auto"/>
                         
                         <DataGridTextColumn Header="Товары" Width="*"/>
                         
-                        <DataGridTextColumn Header="Клиент" Width="*"/>
+                        <DataGridTextColumn Header="Клиент" Binding="{Binding ClientName}" Width="*"/>
 
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.HeaderTemplate>
@@ -126,13 +134,18 @@
                                     <Icon:PackIconMaterialDesign Kind="Payment"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding SumPrice}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Адрес забора" Width="*"/>
+                        <DataGridTextColumn Header="Адрес забора" Binding="{Binding PickupAddress}" Width="*"/>
 
-                        <DataGridTextColumn Header="Адрес доставки" Width="*"/>
+                        <DataGridTextColumn Header="Адрес доставки" Binding="{Binding DeliveryAddress}" Width="*"/>
                         
-                        <DataGridTextColumn Header="Дата и время доставки" Width="*"/>
+                        <DataGridTextColumn Header="Дата и время доставки" Binding="{Binding DeliveryDate, StringFormat=d}" Width="*"/>
 
                         <DataGridTemplateColumn Width="*">
                             <DataGridTemplateColumn.HeaderTemplate>
@@ -140,6 +153,11 @@
                                     <Icon:PackIconMaterialDesign Kind="Message"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Comment}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
                     </DataGrid.Columns>

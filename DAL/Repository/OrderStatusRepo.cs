@@ -4,38 +4,39 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Entities;
 
 namespace DAL
 {
     public class OrderStatusRepo : IRepository<OrderStatus>
     {
-        private DeliveryDB db;
+        private DeliveryDBContext db;
 
-        public OrderStatusRepo(DeliveryDB db)
+        public OrderStatusRepo(DeliveryDBContext db)
         {
             this.db = db;
         }
 
         public void Create(OrderStatus item)
         {
-            db.OrderStatus.Add(item);
+            db.OrderStatuses.Add(item);
         }
 
         public void Delete(int id)
         {
-            OrderStatus item = db.OrderStatus.Find(id);
+            OrderStatus item = db.OrderStatuses.Find(id);
             if (item != null)
-                db.OrderStatus.Remove(item);
+                db.OrderStatuses.Remove(item);
         }
 
         public OrderStatus GetItem(int id)
         {
-            return db.OrderStatus.Find(id);
+            return db.OrderStatuses.Find(id);
         }
 
         public List<OrderStatus> GetList()
         {
-            return db.OrderStatus.ToList();
+            return db.OrderStatuses.ToList();
         }
 
         public void Update(OrderStatus item)

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Entities;
 
 namespace DAL
 {
     public class ReportRepo : IReportsRepository
     {
-        private DeliveryDB db;
+        private DeliveryDBContext db;
 
-        public ReportRepo(DeliveryDB db)
+        public ReportRepo(DeliveryDBContext db)
         {
             this.db = db;
         }

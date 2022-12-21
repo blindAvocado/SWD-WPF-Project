@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Entities;
 
 namespace DAL
 {
     public class DBRepoSQL : IDbRepository
     {
-        private DeliveryDB db;
+        private DeliveryDBContext db;
         private OrderRepo orderRepository;
         private OrderStatusRepo orderStatusRepository;
         private OrderContentRepo orderContentRepository;
@@ -21,7 +22,7 @@ namespace DAL
 
         public DBRepoSQL()
         {
-            db = new DeliveryDB();
+            db = new DeliveryDBContext();
         }
 
         public IRepository<Order> orders

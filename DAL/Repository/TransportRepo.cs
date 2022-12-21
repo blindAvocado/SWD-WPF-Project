@@ -4,14 +4,15 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Entities;
 
 namespace DAL
 {
     public class TransportRepo : IRepository<Transport>
     {
-        private DeliveryDB db;
+        private DeliveryDBContext db;
 
-        public TransportRepo(DeliveryDB db)
+        public TransportRepo(DeliveryDBContext db)
         {
             this.db = db;
         }

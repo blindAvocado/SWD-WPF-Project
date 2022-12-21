@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SWD_WPF_Project.ViewModels;
 
 namespace SWD_WPF_Project.View
 {
@@ -23,6 +24,7 @@ namespace SWD_WPF_Project.View
         public OrdersView()
         {
             InitializeComponent();
+            this.DataContext = new OrdersViewModel();
         }
     }
 }

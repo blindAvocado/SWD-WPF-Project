@@ -55,10 +55,10 @@
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\Courier.cs" />
     <Compile Include="Entities\Manager.cs" />
-    <Compile Include="DeliveryDB.cs" />
+    <Compile Include="Entities\DeliveryDBContext.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderContent.cs" />
-    <Compile Include="Entities\OrderStatu.cs" />
+    <Compile Include="Entities\OrderStatus.cs" />
     <Compile Include="Entities\Transport.cs" />
     <Compile Include="Interfaces\IDbRepository.cs" />
     <Compile Include="Interfaces\IReportsRepository.cs" />
@@ -79,9 +79,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,10 +6,11 @@ namespace DAL.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class OrderStatu
+    [Table("OrderStatuses")]
+    public partial class OrderStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderStatu()
+        public OrderStatus()
         {
             Orders = new HashSet<Order>();
         }

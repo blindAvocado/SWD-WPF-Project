@@ -23,5 +23,20 @@ namespace SWD_WPF_Project.View
         {
             InitializeComponent();
         }
+
+        private void windowControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void buttonCloseWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void buttonSubmitForm_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

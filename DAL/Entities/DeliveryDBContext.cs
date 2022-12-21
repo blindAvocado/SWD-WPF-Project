@@ -2,14 +2,13 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
-using DAL.Entities;
 
-namespace DAL
+namespace DAL.Entities
 {
-    public partial class DeliveryDB : DbContext
+    public partial class DeliveryDBContext : DbContext
     {
-        public DeliveryDB()
-            : base("name=DBConnection")
+        public DeliveryDBContext()
+            : base("name=DeliveryDB")
         {
         }
 
@@ -20,7 +19,7 @@ namespace DAL
         public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<OrderContent> OrderContents { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderStatu> OrderStatus { get; set; }
+        public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
         public virtual DbSet<Transport> Transports { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -48,9 +47,9 @@ namespace DAL
                 .HasForeignKey(e => e.order_orderContent)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<OrderStatu>()
+            modelBuilder.Entity<OrderStatus>()
                 .HasMany(e => e.Orders)
-                .WithRequired(e => e.OrderStatu)
+                .WithRequired(e => e.OrderStatus)
                 .HasForeignKey(e => e.status_order)
                 .WillCascadeOnDelete(false);
 

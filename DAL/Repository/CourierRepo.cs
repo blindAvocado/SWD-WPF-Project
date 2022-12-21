@@ -4,14 +4,15 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Entities;
 
 namespace DAL
 {
     public class CourierRepo : IRepository<Courier>
     {
-        private DeliveryDB db;
+        private DeliveryDBContext db;
 
-        public CourierRepo(DeliveryDB db)
+        public CourierRepo(DeliveryDBContext db)
         {
             this.db = db;
         }

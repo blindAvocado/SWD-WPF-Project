@@ -19,7 +19,11 @@ namespace DAL.Entities
 
         public DateTime createdDate_order { get; set; }
 
+        public int status_order { get; set; }
+
         public int client_order { get; set; }
+
+        public decimal sumPrice_order { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -33,13 +37,12 @@ namespace DAL.Entities
 
         public DateTime deliveryDate_order { get; set; }
 
-        public int status_order { get; set; }
-
-        public int payment_order { get; set; }
-
         public int? courier_order { get; set; }
 
         public int? transport_order { get; set; }
+
+        [StringLength(200)]
+        public string comment_order { get; set; }
 
         public virtual Client Client { get; set; }
 
@@ -48,7 +51,7 @@ namespace DAL.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderContent> OrderContents { get; set; }
 
-        public virtual OrderStatu OrderStatu { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
 
         public virtual Transport Transport { get; set; }
     }

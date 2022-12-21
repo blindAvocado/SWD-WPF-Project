@@ -4,14 +4,15 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Entities;
 
 namespace DAL
 {
     public class ClientRepo : IRepository<Client>
     {
-        private DeliveryDB db;
+        private DeliveryDBContext db;
 
-        public ClientRepo(DeliveryDB db)
+        public ClientRepo(DeliveryDBContext db)
         {
             this.db = db;
         }
