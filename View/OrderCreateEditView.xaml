@@ -196,7 +196,7 @@
                                     <Grid Width="150" Height="40" Margin="20 0 0 0">
                                         <TextBlock Style="{StaticResource titleInputWindow}" Text="Дата" Panel.ZIndex="1"/>
                                         <Border Style="{StaticResource borderInputWindow}">
-                                            <TextBox Style="{StaticResource inputTextFieldWindow}"/>
+                                            <DatePicker Style="{DynamicResource DatePickerStyle1}"/>
                                         </Border>
                                         <Icon:PackIconMaterialDesign Kind="DateRange" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Foreground="{StaticResource primaryLightBrush}" IsHitTestVisible="False"/>
                                     </Grid>
