@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SWD_WPF_Project.ViewModels
@@ -22,8 +23,6 @@ namespace SWD_WPF_Project.ViewModels
         public ObservableCollection<CargoTypeModel> AllCargoTypes { get; set; }
 
         public ObservableCollection<OrderContentModel> CargoList { get; set; }
-        public ClientModel SelectedClient { get; set; }
-        public DistrictModel SelectedDistrict { get; set; }
         public OrderModel SelectedOrder { get; set; }
 
         private void SetAllClients()
@@ -45,6 +44,7 @@ namespace SWD_WPF_Project.ViewModels
         }
 
         public ICommand CreateNewCargoItem { get; }
+        public ICommand SubmitOrder { get; }
 
         public OrderFormViewModel()
         {
@@ -55,11 +55,29 @@ namespace SWD_WPF_Project.ViewModels
 
             SelectedOrder = new OrderModel();
 
+            SelectedOrder.PickupDate = DateTime.Now;
+            SelectedOrder.DeliveryDate = DateTime.Now;
+
             SetAllClients();
             SetAllDistricts();
             SetAllCargoTypes();
 
             CreateNewCargoItem = new ViewModelCommand(ExecuteCreateNewCargoItemCommand);
+            SubmitOrder = new ViewModelCommand(ExecuteSubmitOrderCommand);
+        }
+
+        private void ExecuteSubmitOrderCommand(object obj)
+        {
+            //MessageBox.Show(DateTime.Now.ToString());
+            SelectedOrder.SumPrice = 1111;
+
+            _orderService.AddOrder(SelectedOrder);
+
+            //foreach (var cargo in CargoList)
+            //{
+            //    cargo.ID = _orderService.GetLastIndex();
+            //    _cargoService.AddCargo(cargo);
+            //}
         }
 
         public OrderFormViewModel(OrderModel order)

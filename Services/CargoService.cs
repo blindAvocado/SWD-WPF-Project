@@ -27,5 +27,16 @@ namespace SWD_WPF_Project.Services
         {
             return db.CargoTypes.Where(i => i.id_cargoType == id).Select(i => i.type_cargoType).SingleOrDefault();
         }
+
+        public void AddCargo(OrderContentModel cargo)
+        {
+            var c = new OrderContent
+            {
+
+            };
+
+            db.OrderContents.Add(c);
+            db.SaveChanges();
+        }
     }
 }

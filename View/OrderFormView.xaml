@@ -75,7 +75,7 @@
                             <TextBlock Style="{StaticResource titleInputWindow}" Text="Выбрать клиента" Panel.ZIndex="1"/>
                             <Border Style="{StaticResource borderInputWindow}">
                                 <!--<TextBox Style="{StaticResource inputTextFieldWindow}"/>-->
-                                <ComboBox Name="comboBoxClient" ItemsSource="{Binding AllClients}" DisplayMemberPath="Name" SelectedValuePath="ID"/>
+                                <ComboBox Name="comboBoxClient" ItemsSource="{Binding AllClients}" DisplayMemberPath="Name" SelectedValuePath="ID" SelectedValue="{Binding SelectedOrder.ClientID}"/>
 
                             </Border>
                         </Grid>
@@ -136,7 +136,7 @@
                                 <Grid Width="175" Height="40">
                                     <TextBlock Style="{StaticResource titleInputWindow}" Text="Район" Panel.ZIndex="1"/>
                                     <Border Style="{StaticResource borderInputWindow}">
-                                        <ComboBox Name="inputPickupDistrict" ItemsSource="{Binding AllDistricts}" DisplayMemberPath="Name" SelectedValuePath="ID" />
+                                        <ComboBox Name="inputPickupDistrict" ItemsSource="{Binding AllDistricts}" DisplayMemberPath="Name" SelectedValuePath="ID" SelectedValue="{Binding SelectedOrder.PickupDistrictID}" />
                                     </Border>
                                 </Grid>
 
@@ -144,7 +144,7 @@
                                 <Grid Width="200" Margin="20 0 0 0">
                                     <TextBlock Style="{StaticResource titleInputWindow}" Text="Улица, дом, кв." Panel.ZIndex="1"/>
                                     <Border Style="{StaticResource borderInputWindow}">
-                                        <TextBox Name="inputPickupAddress" Style="{StaticResource inputTextFieldWindow}"/>
+                                        <TextBox Name="inputPickupAddress" Style="{StaticResource inputTextFieldWindow}" Text="{Binding SelectedOrder.PickupAddress}"/>
                                     </Border>
                                 </Grid>
 
@@ -152,7 +152,7 @@
                                 <Grid Width="150" Height="40" Margin="20 0 0 0">
                                     <TextBlock Style="{StaticResource titleInputWindow}" Text="Дата" Panel.ZIndex="1"/>
                                     <Border Style="{StaticResource borderInputWindow}">
-                                        <DatePicker Name="inputPickupDate" Style="{DynamicResource DatePickerStyle1}"/>
+                                        <DatePicker Name="inputPickupDate" Style="{DynamicResource DatePickerStyle1}" SelectedDate="{Binding SelectedOrder.PickupDate}"/>
                                     </Border>
                                     <Icon:PackIconMaterialDesign Kind="DateRange" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Foreground="{StaticResource primaryLightBrush}" IsHitTestVisible="False"/>
                                 </Grid>
@@ -167,7 +167,7 @@
                                 <Grid Width="175" Height="40">
                                     <TextBlock Style="{StaticResource titleInputWindow}" Text="Район" Panel.ZIndex="1"/>
                                     <Border Style="{StaticResource borderInputWindow}">
-                                        <ComboBox Name="inputDeliveryDistrict" ItemsSource="{Binding AllDistricts}" DisplayMemberPath="Name" SelectedValuePath="ID" />
+                                        <ComboBox Name="inputDeliveryDistrict" ItemsSource="{Binding AllDistricts}" DisplayMemberPath="Name" SelectedValuePath="ID" SelectedValue="{Binding SelectedOrder.DeliveryDistrictID}"/>
                                     </Border>
                                 </Grid>
 
@@ -175,7 +175,7 @@
                                 <Grid Width="200" Margin="20 0 0 0">
                                     <TextBlock Style="{StaticResource titleInputWindow}" Text="Улица, дом, кв." Panel.ZIndex="1"/>
                                     <Border Style="{StaticResource borderInputWindow}">
-                                        <TextBox Name="inputDeliveryAddress" Style="{StaticResource inputTextFieldWindow}"/>
+                                        <TextBox Name="inputDeliveryAddress" Style="{StaticResource inputTextFieldWindow}" Text="{Binding SelectedOrder.DeliveryAddress}"/>
                                     </Border>
                                 </Grid>
 
@@ -183,7 +183,7 @@
                                 <Grid Width="150" Height="40" Margin="20 0 0 0">
                                     <TextBlock Style="{StaticResource titleInputWindow}" Text="Дата" Panel.ZIndex="1"/>
                                     <Border Style="{StaticResource borderInputWindow}">
-                                        <DatePicker Name="inputDeliveryDate" Style="{DynamicResource DatePickerStyle1}"/>
+                                        <DatePicker Name="inputDeliveryDate" Style="{DynamicResource DatePickerStyle1}" SelectedDate="{Binding SelectedOrder.DeliveryDate}"/>
                                     </Border>
                                     <Icon:PackIconMaterialDesign Kind="DateRange" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" Foreground="{StaticResource primaryLightBrush}" IsHitTestVisible="False"/>
                                 </Grid>
@@ -283,7 +283,7 @@
                     <Grid Grid.Column="0">
                         <TextBlock Style="{StaticResource titleInputWindow}" Text="Комментарий" Panel.ZIndex="1"/>
                         <Border Style="{StaticResource borderInputWindow}">
-                            <TextBox Padding="5" BorderThickness="0" Background="Transparent"/>
+                            <TextBox Text="{Binding SelectedOrder.Comment}" Padding="5" BorderThickness="0" Background="Transparent"/>
                         </Border>
                     </Grid>
 
@@ -336,7 +336,7 @@
 
                 <!--Submit-->
                 <StackPanel Grid.Row="8" Orientation="Horizontal" FlowDirection="RightToLeft">
-                    <Button x:Name="buttonSubmitForm" Content="Создать" Style="{StaticResource buttonSubmitWindow}" IsDefault="True" Click="buttonSubmitForm_Click"></Button>
+                    <Button x:Name="buttonSubmitForm" Content="Создать" Style="{StaticResource buttonSubmitWindow}" Command="{Binding SubmitOrder}" IsDefault="True" Click="buttonSubmitForm_Click"></Button>
                 </StackPanel>
             </Grid>
         </Border>

@@ -43,11 +43,16 @@ namespace SWD_WPF_Project.Services
             return db.OrderStatuses.Where(i => i.id_orderStatus == id).Select(i => i.status_orderStatus).SingleOrDefault();
         }
 
+        public int GetLastIndex()
+        {
+            return db.Orders.OrderByDescending(i => i.id_order).FirstOrDefault().id_order;
+        }
+
         public void AddOrder(OrderModel order)
         {
             var o = new Order()
             {
-                status_order = order.StatusID,
+                status_order = 2,
                 createdDate_order = DateTime.Now,
                 client_order = order.ClientID,
                 sumPrice_order = order.SumPrice,

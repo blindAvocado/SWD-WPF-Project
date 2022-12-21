@@ -9,6 +9,7 @@ using System.Windows.Input;
 using SWD_WPF_Project.Models;
 using SWD_WPF_Project.Services;
 using SWD_WPF_Project.View;
+using System.Windows;
 
 namespace SWD_WPF_Project.ViewModels
 {
@@ -22,9 +23,9 @@ namespace SWD_WPF_Project.ViewModels
         public ObservableCollection<OrderModel> WaitingOrders { get; set; }
         public ObservableCollection<OrderModel> CurrentCollection { get; set; }
         public ObservableCollection<ClientModel> AllClients { get; set; }
-        
-        public int ClientID { get; set; }
 
+        public OrderModel SelectedOrder { get; set; }
+        
         private void SetAllOrders()
         {
             AllOrders = new ObservableCollection<OrderModel>(_orderService.GetAllOrders());
@@ -70,6 +71,13 @@ namespace SWD_WPF_Project.ViewModels
             OnPropertyChanged(nameof(AllClients));
         }
 
+        private void SetAllTables()
+        {
+            SetAllOrders();
+            SetReadyOrders();
+            SetWaitingOrders();
+        }
+
         public ICommand ShowAllOrders { get; }
         public ICommand ShowReadyOrders { get; }
         public ICommand ShowWaitingOrders { get; }
@@ -86,9 +94,8 @@ namespace SWD_WPF_Project.ViewModels
             ShowReadyOrders = new ViewModelCommand(ExecuteShowReadyOrdersCommand);
             ShowWaitingOrders = new ViewModelCommand(ExecuteShowWaitingOrdersCommand);
 
-            SetAllOrders();
-            SetReadyOrders();
-            SetWaitingOrders();
+            SetAllTables();
+
             SetAllClients();
 
             ExecuteShowAllOrdersCommand(null);
@@ -100,6 +107,8 @@ namespace SWD_WPF_Project.ViewModels
         {
             var dialog = new OrderFormView();
             dialog.ShowDialog();
+            SetAllTables();
+            ExecuteShowAllOrdersCommand(null);
         }
 
         private void ExecuteShowWaitingOrdersCommand(object obj)
