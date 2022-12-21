@@ -41,6 +41,7 @@
                         <RowDefinition Height="120"/>
                         <RowDefinition Height="65"/>
                         <RowDefinition Height="65"/>
+                        <RowDefinition Height="65"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="65"/>
                     </Grid.RowDefinitions>
@@ -57,7 +58,11 @@
                         <Icon:PackIconMaterialDesign Kind="Assessment" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </RadioButton>
 
-                    <RadioButton Grid.Row="4" ClipToBounds="False" x:Name="logoutButton" Style="{StaticResource navbarBtn}" VerticalAlignment="Bottom">
+                    <RadioButton Grid.Row="3" ClipToBounds="False" x:Name="staffButton" Style="{StaticResource navbarBtn}" Command="{Binding ShowStaffViewCommand}">
+                        <Icon:PackIconMaterialDesign Kind="People" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </RadioButton>
+
+                    <RadioButton Grid.Row="5" ClipToBounds="False" x:Name="logoutButton" Style="{StaticResource navbarBtn}" VerticalAlignment="Bottom">
                         <Icon:PackIconMaterialDesign Kind="ExitToApp" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </RadioButton>
                 </Grid>

@@ -16,6 +16,7 @@ namespace DAL.Entities
         public virtual DbSet<CargoType> CargoTypes { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Courier> Couriers { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<OrderContent> OrderContents { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
@@ -40,6 +41,18 @@ namespace DAL.Entities
                 .HasMany(e => e.Orders)
                 .WithOptional(e => e.Courier)
                 .HasForeignKey(e => e.courier_order);
+
+            modelBuilder.Entity<District>()
+                .HasMany(e => e.Orders)
+                .WithRequired(e => e.District)
+                .HasForeignKey(e => e.pickupDistrict_order)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<District>()
+                .HasMany(e => e.Orders1)
+                .WithRequired(e => e.District1)
+                .HasForeignKey(e => e.deliveryDistrict_order)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Order>()
                 .HasMany(e => e.OrderContents)

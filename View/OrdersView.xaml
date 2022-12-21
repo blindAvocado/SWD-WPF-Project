@@ -97,7 +97,7 @@
                     </Button>
                 </StackPanel>
 
-                <DataGrid Grid.Row="2" x:Name="ordersDataGrid" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=CurrentCollection}">
+                <DataGrid Grid.Row="2" Name="ordersDataGrid" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=CurrentCollection}">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn CanUserResize="False" Width="auto">
                             <DataGridCheckBoxColumn.HeaderTemplate>

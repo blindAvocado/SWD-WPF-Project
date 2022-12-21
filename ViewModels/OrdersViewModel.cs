@@ -15,11 +15,15 @@ namespace SWD_WPF_Project.ViewModels
     public class OrdersViewModel : ViewModelBase
     {
         private readonly OrderService _orderService = new OrderService();
+        private readonly ClientService _clientService = new ClientService();
 
         public ObservableCollection<OrderModel> AllOrders { get; set; }
         public ObservableCollection<OrderModel> ReadyOrders { get; set; }
         public ObservableCollection<OrderModel> WaitingOrders { get; set; }
         public ObservableCollection<OrderModel> CurrentCollection { get; set; }
+        public ObservableCollection<ClientModel> AllClients { get; set; }
+        
+        public int ClientID { get; set; }
 
         private void SetAllOrders()
         {
@@ -27,8 +31,8 @@ namespace SWD_WPF_Project.ViewModels
 
             foreach (var order in AllOrders)
             {
-                order.ClientName = _orderService.GetClientNameByID(order.ClientID);
-                order.StatusName = _orderService.GetStatusNameByID(order.ClientID);
+                order.ClientName = _clientService.GetClientNameByID(order.ClientID);
+                order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
             }
 
             OnPropertyChanged(nameof(AllOrders));
@@ -40,8 +44,8 @@ namespace SWD_WPF_Project.ViewModels
 
             foreach (var order in ReadyOrders)
             {
-                order.ClientName = _orderService.GetClientNameByID(order.ClientID);
-                order.StatusName = _orderService.GetStatusNameByID(order.ClientID);
+                order.ClientName = _clientService.GetClientNameByID(order.ClientID);
+                order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
             }
 
             OnPropertyChanged(nameof(ReadyOrders));
@@ -53,11 +57,17 @@ namespace SWD_WPF_Project.ViewModels
 
             foreach (var order in WaitingOrders)
             {
-                order.ClientName = _orderService.GetClientNameByID(order.ClientID);
-                order.StatusName = _orderService.GetStatusNameByID(order.ClientID);
+                order.ClientName = _clientService.GetClientNameByID(order.ClientID);
+                order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
             }
 
             OnPropertyChanged(nameof(WaitingOrders));
+        }
+
+        private void SetAllClients()
+        {
+            AllClients = new ObservableCollection<ClientModel>(_clientService.GetAllClients());
+            OnPropertyChanged(nameof(AllClients));
         }
 
         public ICommand ShowAllOrders { get; }
@@ -70,6 +80,7 @@ namespace SWD_WPF_Project.ViewModels
             AllOrders = new ObservableCollection<OrderModel>();
             ReadyOrders = new ObservableCollection<OrderModel>();
             WaitingOrders = new ObservableCollection<OrderModel>();
+            AllClients = new ObservableCollection<ClientModel>();
 
             ShowAllOrders = new ViewModelCommand(ExecuteShowAllOrdersCommand);
             ShowReadyOrders = new ViewModelCommand(ExecuteShowReadyOrdersCommand);
@@ -78,6 +89,7 @@ namespace SWD_WPF_Project.ViewModels
             SetAllOrders();
             SetReadyOrders();
             SetWaitingOrders();
+            SetAllClients();
 
             ExecuteShowAllOrdersCommand(null);
 
@@ -86,7 +98,7 @@ namespace SWD_WPF_Project.ViewModels
 
         private void ExecuteShowCreateOrderDialogCommand(object obj)
         {
-            var dialog = new OrderCreateEditView();
+            var dialog = new OrderFormView();
             dialog.ShowDialog();
         }
 

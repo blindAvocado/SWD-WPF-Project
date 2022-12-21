@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace SWD_WPF_Project.View
 {
     /// <summary>
-    /// Interaction logic for OrderCreateEditView.xaml
+    /// Interaction logic for OrderFormView.xaml
     /// </summary>
-    public partial class OrderCreateEditView : Window
+    public partial class OrderFormView : Window
     {
-        public OrderCreateEditView()
+        public OrderFormView()
         {
             InitializeComponent();
         }

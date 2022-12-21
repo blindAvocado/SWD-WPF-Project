@@ -7,7 +7,7 @@ using DAL.Entities;
 
 namespace SWD_WPF_Project.Models
 {
-    public class CargoTypeModel : ModelBase
+    public class DistrictModel : ModelBase
     {
         private int _id;
         private string _name;
@@ -32,12 +32,12 @@ namespace SWD_WPF_Project.Models
             }
         }
 
-        public CargoTypeModel() {}
+        public DistrictModel() { }
 
-        public CargoTypeModel(CargoType type)
+        public DistrictModel(District district)
         {
-            ID = type.id_cargoType;
-            Name = type.type_cargoType;
+            ID = district.id_district;
+            Name = district.name_district;
         }
     }
 }

@@ -10,13 +10,15 @@ namespace SWD_WPF_Project.Models
     public class OrderModel : ModelBase
     {
         private int _id;
-        private int _status;
+        private int _statusID;
         private string _statusName;
         private DateTime _createdDate;
         private int _clientID;
         private string _clientName;
+        private int _pickupDistrictID;
         private string _pickupAddress;
         private DateTime _pickupDate;
+        private int _deliveryDistrictID;
         private string _deliveryAddress;
         private DateTime _deliveryDate;
         private decimal _sumPrice;
@@ -34,13 +36,13 @@ namespace SWD_WPF_Project.Models
             }
         }
 
-        public int Status
+        public int StatusID
         {
-            get { return _status; }
+            get { return _statusID; }
             set
             {
-                _status = value;
-                OnPropertyChanged(nameof(Status));
+                _statusID = value;
+                OnPropertyChanged(nameof(StatusID));
             }
         }
 
@@ -83,6 +85,16 @@ namespace SWD_WPF_Project.Models
                 OnPropertyChanged(nameof(ClientName));
             }
         }
+        
+        public int PickupDistrictID
+        {
+            get { return _pickupDistrictID; }
+            set
+            {
+                _pickupDistrictID = value;
+                OnPropertyChanged(nameof(PickupDistrictID));
+            }
+        }
 
         public string PickupAddress
         {
@@ -101,6 +113,16 @@ namespace SWD_WPF_Project.Models
             {
                 _pickupDate = value;
                 OnPropertyChanged(nameof(PickupDate));
+            }
+        }
+
+        public int DeliveryDistrictID
+        {
+            get { return _deliveryDistrictID; }
+            set
+            {
+                _deliveryDistrictID = value;
+                OnPropertyChanged(nameof(DeliveryDistrictID));
             }
         }
 
@@ -169,11 +191,13 @@ namespace SWD_WPF_Project.Models
         public OrderModel(Order order)
         {
             ID = order.id_order;
-            Status = order.status_order;
+            StatusID = order.status_order;
             CreatedDate = order.createdDate_order;
             ClientID = order.client_order;
+            PickupDistrictID = order.pickupDistrict_order;
             PickupAddress = order.pickupAddress_order;
             PickupDate = order.pickupDate_order;
+            DeliveryDistrictID = order.deliveryDistrict_order;
             DeliveryAddress = order.deliveryAddress_order;
             DeliveryDate = order.deliveryDate_order;
             SumPrice = order.sumPrice_order;

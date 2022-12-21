@@ -16,7 +16,7 @@ namespace SWD_WPF_Project.Models
         private double _height;
         private double _weight;
         private int _quantity;
-        private int _cargoType;
+        private CargoTypeModel _cargoType;
 
         public int ID
         {
@@ -88,7 +88,7 @@ namespace SWD_WPF_Project.Models
             }
         }
 
-        public int CargoType
+        public CargoTypeModel CargoType
         {
             get { return _cargoType; }
             set
@@ -109,7 +109,7 @@ namespace SWD_WPF_Project.Models
             Height = cargo.height_orderContent;
             Weight = cargo.weight_orderContent;
             Quantity = cargo.quantity_orderContent;
-            CargoType = cargo.cargoType_orderContent;
+            CargoType.ID = cargo.cargoType_orderContent;
         }
     }
 }

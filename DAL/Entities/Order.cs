@@ -25,11 +25,15 @@ namespace DAL.Entities
 
         public decimal sumPrice_order { get; set; }
 
+        public int pickupDistrict_order { get; set; }
+
         [Required]
         [StringLength(50)]
         public string pickupAddress_order { get; set; }
 
         public DateTime pickupDate_order { get; set; }
+
+        public int deliveryDistrict_order { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -47,6 +51,10 @@ namespace DAL.Entities
         public virtual Client Client { get; set; }
 
         public virtual Courier Courier { get; set; }
+
+        public virtual District District { get; set; }
+
+        public virtual District District1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderContent> OrderContents { get; set; }

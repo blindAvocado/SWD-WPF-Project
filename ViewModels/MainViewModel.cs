@@ -33,13 +33,21 @@ namespace SWD_WPF_Project.ViewModels
 
         public ICommand ShowOrdersViewCommand { get; }
         public ICommand ShowReportsViewCommand { get; }
+        public ICommand ShowStaffViewCommand { get; }
 
         public MainViewModel()
         {
             ShowOrdersViewCommand = new ViewModelCommand(ExecuteShowOrdersViewCommand);
             ShowReportsViewCommand = new ViewModelCommand(ExecuteShowReportsViewCommand);
+            ShowStaffViewCommand = new ViewModelCommand(ExecuteShowStaffViewCommand);
 
             ExecuteShowOrdersViewCommand(null);
+        }
+
+        private void ExecuteShowStaffViewCommand(object obj)
+        {
+            CurrentChildView = new StaffViewModel();
+            HeaderTitle = "Люди";
         }
 
         private void ExecuteShowReportsViewCommand(object obj)

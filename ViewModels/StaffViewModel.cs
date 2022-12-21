@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SWD_WPF_Project.ViewModels
 {
-    class StaffViewModel
+    public class StaffViewModel : ViewModelBase
     {
     }
 }

@@ -30,17 +30,12 @@ namespace SWD_WPF_Project.Services
 
         public List<OrderModel> GetWaitingOrders()
         {
-            return db.Orders.AsEnumerable().Select(o => new OrderModel(o)).Where(s => s.Status == 2).ToList();
+            return db.Orders.AsEnumerable().Select(o => new OrderModel(o)).Where(s => s.StatusID == 2).ToList();
         }
 
         public List<OrderModel> GetReadyOrders()
         {
-            return db.Orders.AsEnumerable().Select(o => new OrderModel(o)).Where(s => s.Status == 3).ToList();
-        }
-
-        public string GetClientNameByID(int id)
-        {
-            return db.Clients.Where(i => i.id_client == id).Select(i => i.name_client).SingleOrDefault();
+            return db.Orders.AsEnumerable().Select(o => new OrderModel(o)).Where(s => s.StatusID == 3).ToList();
         }
 
         public string GetStatusNameByID(int id)
@@ -52,12 +47,14 @@ namespace SWD_WPF_Project.Services
         {
             var o = new Order()
             {
-                status_order = order.Status,
+                status_order = order.StatusID,
                 createdDate_order = DateTime.Now,
                 client_order = order.ClientID,
                 sumPrice_order = order.SumPrice,
+                pickupDistrict_order = order.PickupDistrictID,
                 pickupAddress_order = order.PickupAddress,
                 pickupDate_order = order.PickupDate,
+                deliveryDistrict_order = order.DeliveryDistrictID,
                 deliveryAddress_order = order.DeliveryAddress,
                 deliveryDate_order = order.DeliveryDate,
                 courier_order = order.Courier,
@@ -72,9 +69,12 @@ namespace SWD_WPF_Project.Services
         public void EditOrder(OrderModel order)
         {
             var o = db.Orders.FirstOrDefault(i => i.id_order == order.ID);
-            o.status_order = order.Status;
+            o.status_order = order.StatusID;
+            o.sumPrice_order = order.SumPrice;
+            o.pickupDistrict_order = order.PickupDistrictID;
             o.pickupAddress_order = order.PickupAddress;
             o.pickupDate_order = order.PickupDate;
+            o.deliveryDistrict_order = order.DeliveryDistrictID;
             o.deliveryAddress_order = order.DeliveryAddress;
             o.deliveryDate_order = order.DeliveryDate;
             o.courier_order = order.Courier;
@@ -93,7 +93,7 @@ namespace SWD_WPF_Project.Services
                 height_orderContent = cargo.Height,
                 weight_orderContent = cargo.Weight,
                 quantity_orderContent = cargo.Quantity,
-                cargoType_orderContent = cargo.CargoType
+                cargoType_orderContent = cargo.CargoType.ID
             };
 
             db.OrderContents.Add(c);
