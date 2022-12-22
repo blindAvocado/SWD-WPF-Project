@@ -73,11 +73,13 @@ namespace SWD_WPF_Project.ViewModels
 
             _orderService.AddOrder(SelectedOrder);
 
-            //foreach (var cargo in CargoList)
-            //{
-            //    cargo.ID = _orderService.GetLastIndex();
-            //    _cargoService.AddCargo(cargo);
-            //}
+            int i = _orderService.GetLastIndex();
+
+            foreach (var cargo in CargoList)
+            {
+                cargo.Order = i;
+                _cargoService.AddCargo(cargo);
+            }
         }
 
         public OrderFormViewModel(OrderModel order)
@@ -97,6 +99,7 @@ namespace SWD_WPF_Project.ViewModels
         private void ExecuteCreateNewCargoItemCommand(object obj)
         {
             CargoList.Add(new OrderContentModel());
+            CargoList.Last().CargoType = new CargoTypeModel();
             OnPropertyChanged(nameof(CargoList));
         }
     }

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SWD_WPF_Project.ViewModels;
 
 namespace SWD_WPF_Project.View
 {

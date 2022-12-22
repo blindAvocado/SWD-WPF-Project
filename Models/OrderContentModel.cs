@@ -18,6 +18,12 @@ namespace SWD_WPF_Project.Models
         private int _quantity;
         private CargoTypeModel _cargoType;
 
+        private string _widthStr;
+        private string _lengthStr;
+        private string _heightStr;
+        private string _weightStr;
+        private string _quantityStr;
+
         public int ID
         {
             get { return _id; }
@@ -95,6 +101,56 @@ namespace SWD_WPF_Project.Models
             {
                 _cargoType = value;
                 OnPropertyChanged(nameof(CargoType));
+            }
+        }
+
+        public string WidthStr
+        {
+            get { return _widthStr; }
+            set
+            {
+                _widthStr = value;
+                OnPropertyChanged(nameof(WidthStr));
+            }
+        }
+
+        public string LengthStr
+        {
+            get { return _lengthStr; }
+            set
+            {
+                _lengthStr = value;
+                OnPropertyChanged(nameof(LengthStr));
+            }
+        }
+
+        public string HeightStr
+        {
+            get { return _heightStr; }
+            set
+            {
+                _heightStr = value;
+                OnPropertyChanged(nameof(HeightStr));
+            }
+        }
+
+        public string WeightStr
+        {
+            get { return _weightStr; }
+            set
+            {
+                _weightStr = value;
+                OnPropertyChanged(nameof(WeightStr));
+            }
+        }
+
+        public string QuantityStr
+        {
+            get { return _quantityStr; }
+            set
+            {
+                _quantityStr = value;
+                OnPropertyChanged(nameof(QuantityStr));
             }
         }
 
