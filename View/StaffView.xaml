@@ -52,7 +52,7 @@
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Stretch">
                     <!--Tab Button-->
                     <Grid>
-                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowAllClients}" Content="Клиенты" IsChecked="True">
+                        <RadioButton GroupName="tabButtons" Name="clientsTab" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowAllClients}" Click="clientsTab_Click" Content="Клиенты" IsChecked="True">
                         </RadioButton>
                         <Border Style="{StaticResource countElementsTab}">
                             <TextBlock x:Name="textAllOrdersTabCount" Style="{StaticResource countElementsTabText}" Text="{Binding AllClients.Count}"/>
@@ -61,7 +61,7 @@
 
                     <!--Tab Button-->
                     <Grid>
-                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowAllCouriers}"  Content="Курьеры">
+                        <RadioButton GroupName="tabButtons" Name="couriersTab" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowAllCouriers}" Click="couriersTab_Click"  Content="Курьеры">
                         </RadioButton>
                         <Border Style="{StaticResource countElementsTab}">
                             <TextBlock x:Name="textReadyOrdersTabCount" Style="{StaticResource countElementsTabText}" Text="{Binding AllCouriers.Count}"/>
@@ -90,10 +90,17 @@
                     </Button>-->
 
                     <!--Add new order Button-->
-                    <Button x:Name="buttonCreateClientn" Command="{Binding ShowCreateClientDialog}" Style="{StaticResource buttonBigPrimary}">
+                    <Button x:Name="buttonCreateClient" Command="{Binding ShowCreateClientDialog}" Style="{StaticResource buttonBigPrimary}" Click="buttonCreateClient_Click">
                         <DockPanel Margin="10pt 5pt" >
                             <Icon:PackIconMaterialDesign Kind="Add" Width="10" Height="10" VerticalAlignment="Center"/>
                             <TextBlock x:Name="buttonCreateClientTitle" Text="Новый клиент" Style="{StaticResource textBigPrimaryButton}" Margin="2 0 0 0"/>
+                        </DockPanel>
+                    </Button>
+
+                    <Button x:Name="buttonCreateCourier" Command="{Binding ShowCreateCourierDialog}" Style="{StaticResource buttonBigPrimary}" Click="buttonCreateCourier_Click" Visibility="Collapsed">
+                        <DockPanel Margin="10pt 5pt" >
+                            <Icon:PackIconMaterialDesign Kind="Add" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="buttonCreateCourierTitle" Text="Новый курьер" Style="{StaticResource textBigPrimaryButton}" Margin="2 0 0 0"/>
                         </DockPanel>
                     </Button>
 
@@ -178,6 +185,92 @@
                                             <Icon:PackIconMaterialDesign Kind="Edit" Width="15" Height="15"/>
                                         </Button>
                                         <Button Style="{StaticResource buttonRemoveOrder}" Margin="5 0" Command="{Binding Path=DataContext.DeleteClient, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                            <Icon:PackIconMaterialDesign Kind="Delete" Width="15" Height="15"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid Grid.Row="2" Name="courierDataGrid" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=AllCouriers}" SelectedItem="{Binding SelectedCourier}" Visibility="Collapsed">
+
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridRow">
+                            <!--<EventSetter Event="MouseDoubleClick" Handler=""/>-->
+                            <Setter Property="Background" Value="White"/>
+                            <!--<Setter Property="Margin" Value="0 4 0 0"/>-->
+                            <Setter Property="SnapsToDevicePixels" Value="true"/>
+                            <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridRow}">
+                                        <Border x:Name="DGR_Border" Padding="0 5" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="0" SnapsToDevicePixels="True">
+                                            <SelectiveScrollingGrid>
+                                                <SelectiveScrollingGrid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </SelectiveScrollingGrid.ColumnDefinitions>
+                                                <SelectiveScrollingGrid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </SelectiveScrollingGrid.RowDefinitions>
+                                                <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                                <DataGridDetailsPresenter Grid.Column="1" Grid.Row="1" SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Visibility="{TemplateBinding DetailsVisibility}"/>
+                                                <DataGridRowHeader Grid.RowSpan="2" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                            </SelectiveScrollingGrid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource accentLightBrush}"/>
+                                </Trigger>
+
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource accentBrush}"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" Value="{StaticResource bgLightBrush}"/>
+                                </MultiTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding ID}"/>
+
+                        <DataGridTemplateColumn Header="Имя" Width="*" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Background="{Binding BG}" Width="30" Height="30" Padding="5" CornerRadius="10">
+                                            <TextBlock Text="{Binding Name[0]}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                        </Border>
+                                        <TextBlock Text="{Binding Name}" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="Номер телефона" Binding="{Binding Phone}" Width="*" IsReadOnly="True"/>
+
+                        <DataGridTemplateColumn Header="Действия" Width="*" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource buttonEditOrder}" Command="{Binding Path=DataContext.ShowEditCourierDialog, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                            <Icon:PackIconMaterialDesign Kind="Edit" Width="15" Height="15"/>
+                                        </Button>
+                                        <Button Style="{StaticResource buttonRemoveOrder}" Margin="5 0" Command="{Binding Path=DataContext.DeleteCourier, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
                                             <Icon:PackIconMaterialDesign Kind="Delete" Width="15" Height="15"/>
                                         </Button>
                                     </StackPanel>

@@ -25,6 +25,32 @@ namespace SWD_WPF_Project.View
             InitializeComponent();
         }
 
+        private void clientsTab_Click(object sender, RoutedEventArgs e)
+        {
+            clientsDataGrid.Visibility = Visibility.Visible;
+            courierDataGrid.Visibility = Visibility.Collapsed;
+            
+            buttonCreateClient.Visibility = Visibility.Visible;
+            buttonCreateCourier.Visibility = Visibility.Collapsed;
+        }
 
+        private void couriersTab_Click(object sender, RoutedEventArgs e)
+        {
+            clientsDataGrid.Visibility = Visibility.Collapsed;
+            courierDataGrid.Visibility = Visibility.Visible;
+
+            buttonCreateClient.Visibility = Visibility.Collapsed;
+            buttonCreateCourier.Visibility = Visibility.Visible;
+        }
+
+        private void buttonCreateClient_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void buttonCreateCourier_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -63,14 +63,14 @@
                             <StackPanel>
                                 <TextBlock Style="{StaticResource invoiceLogistics}" FontWeight="700" Text="Забор:"/>
                                 <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Pickup.DistrictName}"/>
-                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Pickup.Address}" Margin="0 5 0 0"/>
-                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Pickup.Date, StringFormat=d}" Margin="0 5 0 0"/>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Pickup.Address}" Margin="0 0 0 0"/>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Pickup.Date, StringFormat=d}" Margin="0 0 0 0"/>
                             </StackPanel>
                             <StackPanel Margin="0 10 0 0">
                                 <TextBlock Style="{StaticResource invoiceLogistics}" FontWeight="700" Text="Доставка:"/>
                                 <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Delivery.DistrictName}"/>
-                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Delivery.Address}" Margin="0 5 0 0"/>
-                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Delivery.Date, StringFormat=d}" Margin="0 5 0 0"/>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Delivery.Address}" Margin="0 0 0 0"/>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Delivery.Date, StringFormat=d}" Margin="0 0 0 0"/>
                             </StackPanel>
                         </StackPanel>
 
