@@ -14,15 +14,10 @@ namespace SWD_WPF_Project.Models
         private int _statusID;
         private string _statusName;
         private Brush _statusBGBrush;
+        private ClientModel _client;
         private DateTime _createdDate;
-        private int _clientID;
-        private string _clientName;
-        private int _pickupDistrictID;
-        private string _pickupAddress;
-        private DateTime _pickupDate;
-        private int _deliveryDistrictID;
-        private string _deliveryAddress;
-        private DateTime _deliveryDate;
+        private LogisticsModel _pickup;
+        private LogisticsModel _delivery;
         private decimal _sumPrice;
         private int? _courier;
         private int? _transport;
@@ -82,6 +77,16 @@ namespace SWD_WPF_Project.Models
             }
         }
 
+        public ClientModel Client
+        {
+            get { return _client; }
+            set
+            {
+                _client = value;
+                OnPropertyChanged(nameof(Client));
+            }
+        }
+
         public DateTime CreatedDate
         {
             get { return _createdDate; }
@@ -91,84 +96,24 @@ namespace SWD_WPF_Project.Models
                 OnPropertyChanged(nameof(CreatedDate));
             }
         }
-
-        public int ClientID
-        {
-            get { return _clientID; }
-            set
-            {
-                _clientID = value;
-                OnPropertyChanged(nameof(Client));
-            }
-        }
-
-        public string ClientName
-        {
-            get { return _clientName; }
-            set
-            {
-                _clientName = value;
-                OnPropertyChanged(nameof(ClientName));
-            }
-        }
         
-        public int PickupDistrictID
+        public LogisticsModel Pickup
         {
-            get { return _pickupDistrictID; }
+            get { return _pickup; }
             set
             {
-                _pickupDistrictID = value;
-                OnPropertyChanged(nameof(PickupDistrictID));
+                _pickup = value;
+                OnPropertyChanged(nameof(Pickup));
             }
         }
 
-        public string PickupAddress
+        public LogisticsModel Delivery
         {
-            get { return _pickupAddress; }
+            get { return _delivery; }
             set
             {
-                _pickupAddress = value;
-                OnPropertyChanged(nameof(PickupAddress));
-            }
-        }
-
-        public DateTime PickupDate
-        {
-            get { return _pickupDate; }
-            set
-            {
-                _pickupDate = value;
-                OnPropertyChanged(nameof(PickupDate));
-            }
-        }
-
-        public int DeliveryDistrictID
-        {
-            get { return _deliveryDistrictID; }
-            set
-            {
-                _deliveryDistrictID = value;
-                OnPropertyChanged(nameof(DeliveryDistrictID));
-            }
-        }
-
-        public string DeliveryAddress
-        {
-            get { return _deliveryAddress; }
-            set
-            {
-                _deliveryAddress = value;
-                OnPropertyChanged(nameof(DeliveryAddress));
-            }
-        }
-
-        public DateTime DeliveryDate
-        {
-            get { return _deliveryDate; }
-            set
-            {
-                _deliveryDate = value;
-                OnPropertyChanged(nameof(DeliveryDate));
+                _delivery = value;
+                OnPropertyChanged(nameof(Delivery));
             }
         }
 
@@ -337,11 +282,11 @@ namespace SWD_WPF_Project.Models
             PickupPrice = 0;
             DeliveryPrice = 0;
 
-            if (PickupDistrictID != 0)
-                PickupPrice += DeliveryFee * (decimal)districtMultipliers[PickupDistrictID - 1];
+            if (Pickup.DistrictID != 0)
+                PickupPrice += DeliveryFee * (decimal)districtMultipliers[Pickup.DistrictID - 1];
 
-            if (DeliveryDistrictID != 0)
-                DeliveryPrice += DeliveryFee * (decimal)districtMultipliers[DeliveryDistrictID - 1];
+            if (Delivery.DistrictID != 0)
+                DeliveryPrice += DeliveryFee * (decimal)districtMultipliers[Delivery.DistrictID - 1];
         }
 
         //Высчитывание веса заказа и стоимости за вес
@@ -402,13 +347,16 @@ namespace SWD_WPF_Project.Models
             ID = order.id_order;
             StatusID = order.status_order;
             CreatedDate = order.createdDate_order;
-            ClientID = order.client_order;
-            PickupDistrictID = order.pickupDistrict_order;
-            PickupAddress = order.pickupAddress_order;
-            PickupDate = order.pickupDate_order;
-            DeliveryDistrictID = order.deliveryDistrict_order;
-            DeliveryAddress = order.deliveryAddress_order;
-            DeliveryDate = order.deliveryDate_order;
+            Client = new ClientModel();
+            Client.ID = order.client_order;
+            Pickup = new LogisticsModel();
+            Pickup.DistrictID = order.pickupDistrict_order;
+            Pickup.Address = order.pickupAddress_order;
+            Pickup.Date = order.pickupDate_order;
+            Delivery = new LogisticsModel();
+            Delivery.DistrictID = order.deliveryDistrict_order;
+            Delivery.Address = order.deliveryAddress_order;
+            Delivery.Date = order.deliveryDate_order;
             SumPrice = order.sumPrice_order;
             Courier = order.courier_order;
             Transport = order.transport_order;

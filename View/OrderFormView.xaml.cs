@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 using SWD_WPF_Project.ViewModels;
 using SWD_WPF_Project.Models;
 
@@ -38,9 +40,13 @@ namespace SWD_WPF_Project.View
 
         }
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+
         private void windowControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            DragMove();
+            WindowInteropHelper helper = new WindowInteropHelper(this);
+            SendMessage(helper.Handle, 161, 2, 0);
         }
 
         private void buttonCloseWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

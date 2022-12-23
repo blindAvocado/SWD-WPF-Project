@@ -32,6 +32,8 @@ namespace SWD_WPF_Project.ViewModels
 
         public OrderModel SelectedOrder { get; set; }
         public OrderContentModel SelectedCargo { get; set; }
+        public ClientModel SelectedClient { get; set; }
+        public int SelectedClientI { get; set; }
         public ObservableCollection<OrderContentModel> CargoList { get; set; }
         public ObservableCollection<OrderContentModel> CargoListToDelete { get; set; }
 
@@ -159,11 +161,11 @@ namespace SWD_WPF_Project.ViewModels
 
         private void BuildCheckoutStrings()
         {
-            if (SelectedOrder.PickupDistrictID != 0)
-                PickupPrice = $"{SelectedOrder.DeliveryFee}₽ * {SelectedOrder.DistrictMultipliers[SelectedOrder.PickupDistrictID - 1]} = {SelectedOrder.PickupPrice}₽";
+            if (SelectedOrder.Pickup.DistrictID != 0)
+                PickupPrice = $"{SelectedOrder.DeliveryFee}₽ * {SelectedOrder.DistrictMultipliers[SelectedOrder.Pickup.DistrictID - 1]} = {SelectedOrder.PickupPrice}₽";
 
-            if (SelectedOrder.DeliveryDistrictID != 0)
-                DeliveryPrice = $"{SelectedOrder.DeliveryFee}₽ * {SelectedOrder.DistrictMultipliers[SelectedOrder.DeliveryDistrictID - 1]} = {SelectedOrder.DeliveryPrice}₽";
+            if (SelectedOrder.Delivery.DistrictID != 0)
+                DeliveryPrice = $"{SelectedOrder.DeliveryFee}₽ * {SelectedOrder.DistrictMultipliers[SelectedOrder.Delivery.DistrictID - 1]} = {SelectedOrder.DeliveryPrice}₽";
 
             InsurancePrice = $"{SelectedOrder.TotalCargoSum}₽ * {SelectedOrder.InsuranceFee * 100}% = {SelectedOrder.InsurancePrice}₽";
             WeightPrice = $"{SelectedOrder.WeightLimitPrice}₽ * {SelectedOrder.TotalCargoWeight - SelectedOrder.WeightLimit} = {SelectedOrder.WeightPrice}₽";
@@ -185,9 +187,12 @@ namespace SWD_WPF_Project.ViewModels
             CargoList = new ObservableCollection<OrderContentModel>();
 
             SelectedOrder = new OrderModel();
-            SelectedOrder.PickupDate = DateTime.Now;
-            SelectedOrder.DeliveryDate = DateTime.Now;
-
+            SelectedOrder.Pickup = new LogisticsModel();
+            SelectedOrder.Delivery = new LogisticsModel();
+            SelectedOrder.Pickup.Date = DateTime.Now;
+            SelectedOrder.Delivery.Date = DateTime.Now;
+            SelectedOrder.Client = new ClientModel();
+            SelectedClient = SelectedOrder.Client;
 
             SetAllClients();
             SetAllDistricts();
@@ -236,6 +241,7 @@ namespace SWD_WPF_Project.ViewModels
 
         public OrderFormViewModel(OrderModel order)
         {
+
             EditingExisting = true;
 
             AllClients = new ObservableCollection<ClientModel>();
@@ -248,11 +254,14 @@ namespace SWD_WPF_Project.ViewModels
             //CargoList = new ObservableCollection<OrderContentModel>(_cargoService.GetAllCargoForOrder(order.ID));
             SetAllCargo();
 
+
             SetAllClients();
             SetAllDistricts();
             SetAllCargoTypes();
             SetAllStatuses();
             SetAllCouriers();
+
+            SelectedClientI = AllClients.IndexOf(AllClients.Where(c => c.ID == SelectedOrder.Client.ID).FirstOrDefault());
 
             CreateNewCargoItem = new ViewModelCommand(ExecuteCreateNewCargoItemCommand);
             EditOrder = new ViewModelCommand(ExecuteEditOrderCommand);
@@ -263,6 +272,7 @@ namespace SWD_WPF_Project.ViewModels
 
         private void ExecuteEditOrderCommand(object obj)
         {
+            SelectedOrder.Client = AllClients[SelectedClientI];
             _orderService.EditOrder(SelectedOrder);
 
             // Изменение информации о товарах

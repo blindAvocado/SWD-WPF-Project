@@ -190,6 +190,7 @@
     <Compile Include="Models\ClientModel.cs" />
     <Compile Include="Models\CourierModel.cs" />
     <Compile Include="Models\DistrictModel.cs" />
+    <Compile Include="Models\LogisticsModel.cs" />
     <Compile Include="Models\ManagerModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\OrderModel.cs" />
@@ -201,7 +202,6 @@
     <Compile Include="Services\DistrictService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ReportsService.cs" />
-    <Compile Include="Util\NinjectRegistrations.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrderFormViewModel.cs" />
@@ -215,6 +215,9 @@
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OrderDetailsView.xaml.cs">
+      <DependentUpon>OrderDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\OrderFormView.xaml.cs">
       <DependentUpon>OrderFormView.xaml</DependentUpon>
@@ -269,6 +272,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OrderDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

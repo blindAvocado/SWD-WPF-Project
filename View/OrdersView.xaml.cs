@@ -26,5 +26,16 @@ namespace SWD_WPF_Project.View
             InitializeComponent();
             this.DataContext = new OrdersViewModel();
         }
+
+        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                var row = e.Source as DataGridRow;
+
+                OrderDetailsView detailsWindow = new OrderDetailsView(row.Item);
+                detailsWindow.ShowDialog();
+            }
+        }
     }
 }

@@ -28,6 +28,18 @@ namespace SWD_WPF_Project.Services
             return db.Clients.Where(i => i.id_client == id).Select(i => i.name_client).SingleOrDefault();
         }
 
+        public ClientModel GetClientModelByID(int id)
+        {
+            ClientModel client = new ClientModel();
+            client.Name = db.Clients.Where(i => i.id_client == id).Select(i => i.name_client).SingleOrDefault();
+            client.Email = db.Clients.Where(i => i.id_client == id).Select(i => i.email_client).SingleOrDefault();
+            client.Phone = db.Clients.Where(i => i.id_client == id).Select(i => i.phone_client).SingleOrDefault();
+            client.ID = id;
+
+            return client;
+        }
+
+
         public List<CourierModel> GetAllCouriers()
         {
             return db.Couriers.AsEnumerable().Select(c => new CourierModel(c)).ToList();

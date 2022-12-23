@@ -19,6 +19,7 @@ namespace SWD_WPF_Project.Models
         private decimal _price;
         private CargoTypeModel _cargoType;
 
+        private string _dimensions;
         private string _widthStr;
         private string _lengthStr;
         private string _heightStr;
@@ -114,6 +115,16 @@ namespace SWD_WPF_Project.Models
             {
                 _cargoType = value;
                 OnPropertyChanged(nameof(CargoType));
+            }
+        }
+
+        public string Dimensions
+        {
+            get { return $"{Length} x {Width} x {Height}" ; }
+            set
+            {
+                _dimensions = value;
+                OnPropertyChanged(nameof(Dimensions));
             }
         }
 

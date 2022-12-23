@@ -1,0 +1,215 @@
+﻿<Window x:Class="SWD_WPF_Project.View.OrderDetailsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWD_WPF_Project.View"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="White"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        Title="OrderDetailsView" Height="700" Width="600">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Name="windowControlBar" Background="{StaticResource accentBrush}" MouseLeftButtonDown="windowControlBar_MouseLeftButtonDown">
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="36"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Name="windowTitle" Grid.Column="0" Style="{StaticResource titlePopupWindow}" Text="Информация о заказе" Margin="25 10"/>
+
+                <Button Grid.Column="2" x:Name="buttonCloseWindow" Style="{StaticResource buttonControlBar}" HorizontalAlignment="Stretch" IsCancel="True" MouseLeftButtonDown="buttonCloseWindow_MouseLeftButtonDown">
+                    <Icon:MaterialDesign Kind="Close" Width="10" Height="10"/>
+                </Button>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Background="White">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Margin="25">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <!--Separator-->
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <!--Separator-->
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                        <!--Separator-->
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                        <!--Separator-->
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Клиент-->
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Клиент" Style="{StaticResource titleSectionInputWindow}"/>
+
+                        <WrapPanel Grid.Row="1" Margin="0 15 0 0" Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="Имя:" Margin="0 0 10 0"/>
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Client.Name}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="Email:" Margin="0 0 10 0"/>
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Client.Email}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="Номер телефона:" Margin="0 0 10 0"/>
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Client.Phone}"/>
+                            </StackPanel>
+                        </WrapPanel>
+                    </Grid>
+
+                    <Separator Grid.Row="1" Margin="0 25"/>
+
+                    <!--Логистика-->
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Логистика" Style="{StaticResource titleSectionInputWindow}"/>
+
+                        <Grid Grid.Row="1" Margin="0 10 0 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock Grid.Row="0" Text="Забор" Style="{StaticResource subtitleSectionInputWindow}" FontSize="14"/>
+
+                                <WrapPanel Grid.Row="1" Margin="0 25 0 0" Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="Район:" Margin="0 0 10 0"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding PickupDistrictID}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="Улица, дом, кв.:" Margin="0 0 10 0"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding PickupAddress}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="Дата:" Margin="0 0 10 0"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding PickupDate}"/>
+                                    </StackPanel>
+                                </WrapPanel>
+                            </Grid>
+
+                            <Grid Grid.Row="1" Margin="0 10 0 0">
+                                <TextBlock Grid.Row="0" Text="Доставка" Style="{StaticResource subtitleSectionInputWindow}" FontSize="14"/>
+
+                                <WrapPanel Grid.Row="1" Margin="0 25 0 0" Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="Район:" Margin="0 0 10 0"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding DeliveryDistrictID}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="Улица, дом, кв.:" Margin="0 0 10 0"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding DeliveryAddress}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="Дата:" Margin="0 0 10 0"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding DeliveryDate}"/>
+                                    </StackPanel>
+                                </WrapPanel>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+
+                    <Separator Grid.Row="3" Margin="0 25"/>
+
+                    <!--Товары-->
+                    <Grid Grid.Row="4">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock Grid.Row="0" Text="Товары" Style="{StaticResource titleSectionInputWindow}"/>
+                            </Grid>
+
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+                                <DataGrid Grid.Row="1" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" Margin="0 10 0 0" AutoGenerateColumns="False" CanUserAddRows="False" Name="dataGridCargo" ItemsSource="{Binding Cargo}" HorizontalScrollBarVisibility="Auto">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Тип груза" Width="150" Binding="{Binding CargoType.Name}"/>
+                                        <DataGridTextColumn Header="Параметры" Width="120" Binding="{Binding Dimensions}"/>
+                                        <DataGridTextColumn Header="Вес" Width="75" Binding="{Binding Weight}"/>
+                                        <DataGridTextColumn Header="Стоимость" Width="100" Binding="{Binding Price}"/>
+                                        <DataGridTextColumn Header="Кол-во" Width="75" Binding="{Binding Quantity}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </ScrollViewer>
+
+                        </Grid>
+                    </Grid>
+
+                    <Separator Grid.Row="5" Margin="0 25"/>
+
+                    <!--Checkout-->
+                    <Grid Grid.Row="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Другое" Style="{StaticResource titleSectionInputWindow}"/>
+
+                        <WrapPanel Grid.Row="1" Margin="0 15 0 0" Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="Дата создания:" Margin="0 0 10 0"/>
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding CreatedDate}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="Стоимость заказа:" Margin="0 0 10 0"/>
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding SumPrice}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="Статус:"  Margin="0 0 10 0"/>
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding StatusName}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="Курьер:"  Margin="0 0 10 0"/>
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Courier}"/>
+                            </StackPanel>
+                        </WrapPanel>
+                        
+                    </Grid>
+
+                    <Separator Grid.Row="7" Margin="0 20 0 10"/>
+
+                    <!--Submit-->
+                    <StackPanel Grid.Row="8" Orientation="Horizontal" FlowDirection="RightToLeft">
+                        <Button x:Name="buttonPrintReport" Content="Распечатать в PDF" Style="{StaticResource buttonSubmitWindow}"></Button>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+
+    </Grid>
+</Window>

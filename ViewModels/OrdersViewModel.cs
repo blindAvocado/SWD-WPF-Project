@@ -32,7 +32,7 @@ namespace SWD_WPF_Project.ViewModels
 
             foreach (var order in AllOrders)
             {
-                order.ClientName = _clientService.GetClientNameByID(order.ClientID);
+                order.Client = _clientService.GetClientModelByID(order.Client.ID);
                 order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
                 order.StatusBGBrush = _orderService.GetOrderStatusBGColor(order.StatusID);
             }
@@ -46,7 +46,7 @@ namespace SWD_WPF_Project.ViewModels
 
             foreach (var order in ReadyOrders)
             {
-                order.ClientName = _clientService.GetClientNameByID(order.ClientID);
+                order.Client = _clientService.GetClientModelByID(order.Client.ID);
                 order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
                 order.StatusBGBrush = _orderService.GetOrderStatusBGColor(order.StatusID);
             }
@@ -60,7 +60,7 @@ namespace SWD_WPF_Project.ViewModels
 
             foreach (var order in WaitingOrders)
             {
-                order.ClientName = _clientService.GetClientNameByID(order.ClientID);
+                order.Client = _clientService.GetClientModelByID(order.Client.ID);
                 order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
                 order.StatusBGBrush = _orderService.GetOrderStatusBGColor(order.StatusID);
             }

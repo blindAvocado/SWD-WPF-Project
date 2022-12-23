@@ -28,7 +28,7 @@ namespace SWD_WPF_Project.Services
 
         public List<OrderModel> GetAllOrdersByClientID(int id)
         {
-            return db.Orders.AsEnumerable().Select(o => new OrderModel(o)).Where(c => c.ClientID == id).ToList();
+            return db.Orders.AsEnumerable().Select(o => new OrderModel(o)).Where(c => c.Client.ID == id).ToList();
         }
 
         public List<OrderModel> GetWaitingOrders()
@@ -78,14 +78,14 @@ namespace SWD_WPF_Project.Services
             {
                 status_order = 2,
                 createdDate_order = DateTime.Now,
-                client_order = order.ClientID,
+                client_order = order.Client.ID,
                 sumPrice_order = order.SumPrice,
-                pickupDistrict_order = order.PickupDistrictID,
-                pickupAddress_order = order.PickupAddress,
-                pickupDate_order = order.PickupDate,
-                deliveryDistrict_order = order.DeliveryDistrictID,
-                deliveryAddress_order = order.DeliveryAddress,
-                deliveryDate_order = order.DeliveryDate,
+                pickupDistrict_order = order.Pickup.DistrictID,
+                pickupAddress_order = order.Pickup.Address,
+                pickupDate_order = order.Pickup.Date,
+                deliveryDistrict_order = order.Delivery.DistrictID,
+                deliveryAddress_order = order.Delivery.Address,
+                deliveryDate_order = order.Delivery.Date,
                 courier_order = order.Courier,
                 transport_order = order.Transport,
                 comment_order = order.Comment
@@ -102,13 +102,14 @@ namespace SWD_WPF_Project.Services
             if (o != null)
             {
                 o.status_order = order.StatusID;
+                o.client_order = order.Client.ID;
                 o.sumPrice_order = order.SumPrice;
-                o.pickupDistrict_order = order.PickupDistrictID;
-                o.pickupAddress_order = order.PickupAddress;
-                o.pickupDate_order = order.PickupDate;
-                o.deliveryDistrict_order = order.DeliveryDistrictID;
-                o.deliveryAddress_order = order.DeliveryAddress;
-                o.deliveryDate_order = order.DeliveryDate;
+                o.pickupDistrict_order = order.Pickup.DistrictID;
+                o.pickupAddress_order = order.Pickup.Address;
+                o.pickupDate_order = order.Pickup.Date;
+                o.deliveryDistrict_order = order.Delivery.DistrictID;
+                o.deliveryAddress_order = order.Delivery.Address;
+                o.deliveryDate_order = order.Delivery.Date;
                 o.courier_order = order.Courier;
                 o.transport_order = order.Courier;
                 o.comment_order = order.Comment;
