@@ -11,6 +11,8 @@
     <Color x:Key="strokeColor">#D7D7D7</Color>
     <Color x:Key="bgLightColor">#F2F3F5</Color>
     <Color x:Key="bgDarkColor">#9E9E9E</Color>
+    <Color x:Key="deleteColor">#D32F2F</Color>
+    <Color x:Key="deleteLightColor">#ED4444</Color>
 
     <SolidColorBrush x:Key="accentBrush" Color="{StaticResource accentColor}"/>
     <SolidColorBrush x:Key="accentHoverBrush" Color="{StaticResource accentHoverColor}"/>
@@ -22,6 +24,8 @@
     <SolidColorBrush x:Key="strokeBrush" Color="{StaticResource strokeColor}"/>
     <SolidColorBrush x:Key="bgLightBrush" Color="{StaticResource bgLightColor}"/>
     <SolidColorBrush x:Key="bgDarkBrush" Color="{StaticResource bgDarkColor}"/>
+    <SolidColorBrush x:Key="deleteBrush" Color="{StaticResource deleteColor}"/>
+    <SolidColorBrush x:Key="deleteLightBrush" Color="{StaticResource deleteLightColor}"/>
 
 
 </ResourceDictionary>

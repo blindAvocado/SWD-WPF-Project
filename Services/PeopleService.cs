@@ -9,11 +9,11 @@ using SWD_WPF_Project.Models;
 
 namespace SWD_WPF_Project.Services
 {
-    public class ClientService
+    public class PeopleService
     {
         DeliveryDBContext db;
 
-        public ClientService()
+        public PeopleService()
         {
             db = new DeliveryDBContext();
         }
@@ -26,6 +26,11 @@ namespace SWD_WPF_Project.Services
         public string GetClientNameByID(int id)
         {
             return db.Clients.Where(i => i.id_client == id).Select(i => i.name_client).SingleOrDefault();
+        }
+
+        public List<CourierModel> GetAllCouriers()
+        {
+            return db.Couriers.AsEnumerable().Select(c => new CourierModel(c)).ToList();
         }
     }
 }

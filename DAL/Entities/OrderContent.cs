@@ -22,6 +22,8 @@ namespace DAL.Entities
 
         public double weight_orderContent { get; set; }
 
+        public decimal price_orderContent { get; set; }
+
         public int quantity_orderContent { get; set; }
 
         public int cargoType_orderContent { get; set; }

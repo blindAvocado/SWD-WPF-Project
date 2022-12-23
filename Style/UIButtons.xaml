@@ -204,18 +204,17 @@
         <Setter Property="Foreground" Value="{StaticResource primaryBrush}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="16"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
-                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="0 0 0 1" BorderBrush="Transparent" CornerRadius="5 5 0 0" Padding="10 5 30 5">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="0 0 0 1" BorderBrush="Transparent" CornerRadius="5 5 0 0" Padding="10 7 40 7">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource accentBrush}"/>
-                            <!--<Setter Property="BorderThickness" TargetName="border" Value="0 0 0 1"/>-->
-                            <!--<Setter Property="Background" Value="Red"/>-->
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -289,5 +288,62 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="buttonEditOrder" TargetType="Button">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Background" Value="{StaticResource accentBrush}"/>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="2" BorderThickness="0" BorderBrush="{StaticResource accentBrush}" Padding="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource accentHoverBrush}"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource bgDarkBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource primaryLightBrush}"/>
+                <Setter Property="Cursor" Value="Arrow"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="buttonRemoveOrder" TargetType="Button">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Background" Value="{StaticResource deleteBrush}"/>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="2" BorderThickness="0" BorderBrush="{StaticResource accentBrush}" Padding="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource deleteLightBrush}"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource bgDarkBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource primaryLightBrush}"/>
+                <Setter Property="Cursor" Value="Arrow"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>

@@ -21,6 +21,7 @@ namespace SWD_WPF_Project.ViewModels
                 OnPropertyChanged(nameof(CurrentChildView));
             }
         }
+
         public string HeaderTitle
         {
             get { return _headerTitle; }

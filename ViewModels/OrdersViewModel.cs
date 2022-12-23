@@ -16,7 +16,7 @@ namespace SWD_WPF_Project.ViewModels
     public class OrdersViewModel : ViewModelBase
     {
         private readonly OrderService _orderService = new OrderService();
-        private readonly ClientService _clientService = new ClientService();
+        private readonly PeopleService _clientService = new PeopleService();
 
         public ObservableCollection<OrderModel> AllOrders { get; set; }
         public ObservableCollection<OrderModel> ReadyOrders { get; set; }
@@ -34,6 +34,7 @@ namespace SWD_WPF_Project.ViewModels
             {
                 order.ClientName = _clientService.GetClientNameByID(order.ClientID);
                 order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
+                order.StatusBGBrush = _orderService.GetOrderStatusBGColor(order.StatusID);
             }
 
             OnPropertyChanged(nameof(AllOrders));
@@ -47,6 +48,7 @@ namespace SWD_WPF_Project.ViewModels
             {
                 order.ClientName = _clientService.GetClientNameByID(order.ClientID);
                 order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
+                order.StatusBGBrush = _orderService.GetOrderStatusBGColor(order.StatusID);
             }
 
             OnPropertyChanged(nameof(ReadyOrders));
@@ -60,6 +62,7 @@ namespace SWD_WPF_Project.ViewModels
             {
                 order.ClientName = _clientService.GetClientNameByID(order.ClientID);
                 order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
+                order.StatusBGBrush = _orderService.GetOrderStatusBGColor(order.StatusID);
             }
 
             OnPropertyChanged(nameof(WaitingOrders));
@@ -82,6 +85,8 @@ namespace SWD_WPF_Project.ViewModels
         public ICommand ShowReadyOrders { get; }
         public ICommand ShowWaitingOrders { get; }
         public ICommand ShowCreateOrderDialog { get; }
+        public ICommand ShowEditOrderDialog { get; }
+        public ICommand DeleteOrder { get; }
 
         public OrdersViewModel()
         {
@@ -95,18 +100,34 @@ namespace SWD_WPF_Project.ViewModels
             ShowWaitingOrders = new ViewModelCommand(ExecuteShowWaitingOrdersCommand);
 
             SetAllTables();
-
             SetAllClients();
 
             ExecuteShowAllOrdersCommand(null);
 
             ShowCreateOrderDialog = new ViewModelCommand(ExecuteShowCreateOrderDialogCommand);
+            ShowEditOrderDialog = new ViewModelCommand(ExecuteShowEditOrderDialogCommand);
+            DeleteOrder = new ViewModelCommand(ExecuteDeleteOrderCommand);
+        }
+
+        private void ExecuteDeleteOrderCommand(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ExecuteShowEditOrderDialogCommand(object obj)
+        {
+            var dialog = new OrderFormView(SelectedOrder);
+            dialog.ShowDialog();
+
+            SetAllTables();
+            ExecuteShowAllOrdersCommand(null);
         }
 
         private void ExecuteShowCreateOrderDialogCommand(object obj)
         {
             var dialog = new OrderFormView();
             dialog.ShowDialog();
+
             SetAllTables();
             ExecuteShowAllOrdersCommand(null);
         }

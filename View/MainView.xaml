@@ -25,6 +25,10 @@
         <DataTemplate DataType="{x:Type viewModel:ReportsViewModel}">
             <local:ReportsView/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:StaffViewModel}">
+            <local:StaffView/>
+        </DataTemplate>
     </Window.Resources>
     
     <Border>
@@ -54,13 +58,14 @@
                         <Icon:PackIconMaterialDesign Kind="ViewList" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </RadioButton>
 
-                    <RadioButton Grid.Row="2" ClipToBounds="False" x:Name="reportsButton" Style="{StaticResource navbarBtn}" Command="{Binding ShowReportsViewCommand}">
+                    <RadioButton Grid.Row="2" ClipToBounds="False" x:Name="staffButton" Style="{StaticResource navbarBtn}" Command="{Binding ShowStaffViewCommand}">
+                        <Icon:PackIconMaterialDesign Kind="People" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </RadioButton>
+                    
+                    <RadioButton Grid.Row="3" ClipToBounds="False" x:Name="reportsButton" Style="{StaticResource navbarBtn}" Command="{Binding ShowReportsViewCommand}">
                         <Icon:PackIconMaterialDesign Kind="Assessment" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </RadioButton>
 
-                    <RadioButton Grid.Row="3" ClipToBounds="False" x:Name="staffButton" Style="{StaticResource navbarBtn}" Command="{Binding ShowStaffViewCommand}">
-                        <Icon:PackIconMaterialDesign Kind="People" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </RadioButton>
 
                     <RadioButton Grid.Row="5" ClipToBounds="False" x:Name="logoutButton" Style="{StaticResource navbarBtn}" VerticalAlignment="Bottom">
                         <Icon:PackIconMaterialDesign Kind="ExitToApp" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>

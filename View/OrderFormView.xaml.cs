@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SWD_WPF_Project.ViewModels;
+using SWD_WPF_Project.Models;
 
 namespace SWD_WPF_Project.View
 {
@@ -23,6 +24,17 @@ namespace SWD_WPF_Project.View
         public OrderFormView()
         {
             InitializeComponent();
+        }
+
+        public OrderFormView(OrderModel order)
+        {
+            InitializeComponent();
+            var context = new OrderFormViewModel(order);
+            DataContext = context;
+            windowTitle.Text = "Изменить заказ";
+            buttonSubmitForm.Content = "Изменить";
+            buttonSubmitForm.Command = (ICommand)context.GetType().GetProperty("EditOrder").GetValue(context);
+            technicalInfoSection.Visibility = Visibility.Visible;
         }
 
         private void windowControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using DAL;
 using DAL.Entities;
 using SWD_WPF_Project.Models;
@@ -20,7 +21,9 @@ namespace SWD_WPF_Project.Services
 
         public List<OrderModel> GetAllOrders()
         {
+            db = new DeliveryDBContext();
             return db.Orders.AsEnumerable().Select(o => new OrderModel(o)).ToList();
+
         }
 
         public List<OrderModel> GetAllOrdersByClientID(int id)
@@ -48,6 +51,27 @@ namespace SWD_WPF_Project.Services
             return db.Orders.OrderByDescending(i => i.id_order).FirstOrDefault().id_order;
         }
 
+        public List<OrderStatusModel> GetAllStatuses()
+        {
+            return db.OrderStatuses.AsEnumerable().Select(s => new OrderStatusModel(s)).ToList();
+        }
+
+        public Brush GetOrderStatusBGColor(int id)
+        {
+            var converter = new BrushConverter();
+
+            if (id == 1)
+                return (Brush)converter.ConvertFromString("#4CAF50"); //Доставлено
+            if (id == 2)
+                return (Brush)converter.ConvertFromString("#607D8B"); //Ожидает забора
+            if (id == 3)
+                return (Brush)converter.ConvertFromString("#FFC107"); //На складе
+            if (id == 4)
+                return (Brush)converter.ConvertFromString("#F44336"); //Отменен
+
+            return (Brush)converter.ConvertFromString("#757575");
+        }
+
         public void AddOrder(OrderModel order)
         {
             var o = new Order()
@@ -73,19 +97,26 @@ namespace SWD_WPF_Project.Services
 
         public void EditOrder(OrderModel order)
         {
-            var o = db.Orders.FirstOrDefault(i => i.id_order == order.ID);
-            o.status_order = order.StatusID;
-            o.sumPrice_order = order.SumPrice;
-            o.pickupDistrict_order = order.PickupDistrictID;
-            o.pickupAddress_order = order.PickupAddress;
-            o.pickupDate_order = order.PickupDate;
-            o.deliveryDistrict_order = order.DeliveryDistrictID;
-            o.deliveryAddress_order = order.DeliveryAddress;
-            o.deliveryDate_order = order.DeliveryDate;
-            o.courier_order = order.Courier;
-            o.transport_order = order.Courier;
-            o.comment_order = order.Comment;
-            db.SaveChanges();
+            var o = db.Orders.Find(order.ID);
+
+            if (o != null)
+            {
+                o.status_order = order.StatusID;
+                o.sumPrice_order = order.SumPrice;
+                o.pickupDistrict_order = order.PickupDistrictID;
+                o.pickupAddress_order = order.PickupAddress;
+                o.pickupDate_order = order.PickupDate;
+                o.deliveryDistrict_order = order.DeliveryDistrictID;
+                o.deliveryAddress_order = order.DeliveryAddress;
+                o.deliveryDate_order = order.DeliveryDate;
+                o.courier_order = order.Courier;
+                o.transport_order = order.Courier;
+                o.comment_order = order.Comment;
+                db.Entry(o).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            db.Entry(o).Reload();
         }
 
         public void AddOrderCargo(OrderContentModel cargo)

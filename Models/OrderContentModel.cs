@@ -16,6 +16,7 @@ namespace SWD_WPF_Project.Models
         private double _height;
         private double _weight;
         private int _quantity;
+        private decimal _price;
         private CargoTypeModel _cargoType;
 
         private string _widthStr;
@@ -23,6 +24,8 @@ namespace SWD_WPF_Project.Models
         private string _heightStr;
         private string _weightStr;
         private string _quantityStr;
+        private string _priceStr;
+
 
         public int ID
         {
@@ -94,6 +97,16 @@ namespace SWD_WPF_Project.Models
             }
         }
 
+        public decimal Price
+        {
+            get { return _price; }
+            set
+            {
+                _price = value;
+                OnPropertyChanged(nameof(Price));
+            }
+        }
+
         public CargoTypeModel CargoType
         {
             get { return _cargoType; }
@@ -151,6 +164,16 @@ namespace SWD_WPF_Project.Models
             {
                 _quantityStr = value;
                 OnPropertyChanged(nameof(QuantityStr));
+            }
+        }
+
+        public string PriceStr
+        {
+            get { return _priceStr; }
+            set
+            {
+                _priceStr = value;
+                OnPropertyChanged(nameof(PriceStr));
             }
         }
 

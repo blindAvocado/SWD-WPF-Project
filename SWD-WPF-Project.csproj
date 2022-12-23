@@ -197,7 +197,7 @@
     <Compile Include="Models\OrderStatusModel.cs" />
     <Compile Include="Models\TransportModel.cs" />
     <Compile Include="Services\CargoService.cs" />
-    <Compile Include="Services\ClientService.cs" />
+    <Compile Include="Services\PeopleService.cs" />
     <Compile Include="Services\DistrictService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ReportsService.cs" />
