@@ -113,7 +113,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Style="{StaticResource fieldSectionText}" Text="Дата:" Margin="0 0 10 0"/>
-                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Pickup.Date}"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Pickup.Date, StringFormat=d}"/>
                                     </StackPanel>
                                 </WrapPanel>
                             </Grid>
@@ -132,7 +132,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Style="{StaticResource fieldSectionText}" Text="Дата:" Margin="0 0 10 0"/>
-                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Delivery.Date}"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Delivery.Date, StringFormat=d}"/>
                                     </StackPanel>
                                 </WrapPanel>
                             </Grid>
@@ -195,7 +195,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource fieldSectionText}" Text="Курьер:"  Margin="0 0 10 0"/>
-                                <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Courier}"/>
+                                <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding CourierName}"/>
                             </StackPanel>
                         </WrapPanel>
                         

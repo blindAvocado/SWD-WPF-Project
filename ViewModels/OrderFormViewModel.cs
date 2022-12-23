@@ -171,9 +171,9 @@ namespace SWD_WPF_Project.ViewModels
             TotalPrice = $"{SelectedOrder.SumPrice}₽";
         }
 
-        public ICommand CreateNewCargoItem { get; }
         public ICommand SubmitOrder { get; }
         public ICommand EditOrder { get; }
+        public ICommand CreateNewCargoItem { get; }
         public ICommand DeleteCargo { get; }
 
         public OrderFormViewModel()

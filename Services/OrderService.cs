@@ -116,7 +116,7 @@ namespace SWD_WPF_Project.Services
                 o.deliveryAddress_order = order.Delivery.Address;
                 o.deliveryDate_order = order.Delivery.Date;
                 o.courier_order = order.Courier;
-                o.transport_order = order.Courier;
+                //o.transport_order = order.Courier;
                 o.comment_order = order.Comment;
                 db.Entry(o).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();

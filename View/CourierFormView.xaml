@@ -1,0 +1,95 @@
+﻿<Window x:Class="SWD_WPF_Project.View.CourierFormView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWD_WPF_Project.View"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:vm="clr-namespace:SWD_WPF_Project.ViewModels"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="White"
+        AllowsTransparency="True"
+        Title="OrderCreateEditView" Height="330" Width="400">
+
+    <Window.DataContext>
+        <vm:CourierFormViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Name="windowControlBar" Background="{StaticResource accentBrush}" MouseLeftButtonDown="windowControlBar_MouseLeftButtonDown">
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="36"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Name="windowTitle" Grid.Column="0" Style="{StaticResource titlePopupWindow}" Text="Создать курьера" Margin="25 10"/>
+
+                <Button Grid.Column="2" x:Name="buttonCloseWindow" Style="{StaticResource buttonControlBar}" HorizontalAlignment="Stretch" IsCancel="True">
+                    <Icon:MaterialDesign Kind="Close" Width="10" Height="10"/>
+                </Button>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Background="White">
+            <Grid Margin="25">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <!--Separator-->
+                    <RowDefinition Height="auto"/>
+
+                </Grid.RowDefinitions>
+
+                <!--Курьер-->
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Курьер" Style="{StaticResource titleSectionInputWindow}"/>
+
+                    <WrapPanel Grid.Row="1" Margin="0 15 0 0">
+                        <!--Имя-->
+
+                        <Grid Width="300" Height="40">
+                            <TextBlock Style="{StaticResource titleInputWindow}" Text="Имя" Panel.ZIndex="1"/>
+                            <Border Style="{StaticResource borderInputWindow}">
+                                <TextBox Style="{StaticResource inputTextFieldWindow}" Text="{Binding SelectedCourier.Name}"/>
+                            </Border>
+                        </Grid>
+
+                        <!--Телефон-->
+
+                        <Grid Width="300" Height="40" Margin="0 20 0 0">
+                            <TextBlock Style="{StaticResource titleInputWindow}" Text="Телефон" Panel.ZIndex="1"/>
+                            <Border Style="{StaticResource borderInputWindow}">
+                                <TextBox Style="{StaticResource inputTextFieldWindow}" Text="{Binding SelectedCourier.Phone}"/>
+                            </Border>
+                        </Grid>
+                    </WrapPanel>
+                </Grid>
+
+                <Separator Grid.Row="1" Margin="0 25"/>
+
+                <!--Submit-->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Button x:Name="buttonSubmitForm" Content="Создать" Style="{StaticResource buttonSubmitWindow}" Command="{Binding SubmitCourier}" IsDefault="True" Click="buttonSubmitForm_Click"></Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

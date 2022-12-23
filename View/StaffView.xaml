@@ -4,15 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SWD_WPF_Project.View"
-             xmlns:viewModel="clr-namespace:SWD_WPF_Project.ViewModels"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:vm="clr-namespace:SWD_WPF_Project.ViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:StaffViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="680" d:DesignWidth="1200">
-    
-    <UserControl.DataContext>
-        <viewModel:StaffViewModel/>
-    </UserControl.DataContext>
-
 
     <Grid>
         <Grid.RowDefinitions>
@@ -56,19 +52,19 @@
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Stretch">
                     <!--Tab Button-->
                     <Grid>
-                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowAllOrders}" Content="Клиенты" IsChecked="True">
+                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowAllClients}" Content="Клиенты" IsChecked="True">
                         </RadioButton>
                         <Border Style="{StaticResource countElementsTab}">
-                            <TextBlock x:Name="textAllOrdersTabCount" Style="{StaticResource countElementsTabText}" Text="{Binding AllOrders.Count}"/>
+                            <TextBlock x:Name="textAllOrdersTabCount" Style="{StaticResource countElementsTabText}" Text="{Binding AllClients.Count}"/>
                         </Border>
                     </Grid>
 
                     <!--Tab Button-->
                     <Grid>
-                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowReadyOrders}"  Content="Курьеры">
+                        <RadioButton GroupName="tabButtons" Style="{StaticResource buttonTabOrders}" Command="{Binding ShowAllCouriers}"  Content="Курьеры">
                         </RadioButton>
                         <Border Style="{StaticResource countElementsTab}">
-                            <TextBlock x:Name="textReadyOrdersTabCount" Style="{StaticResource countElementsTabText}" Text="{Binding ReadyOrders.Count}"/>
+                            <TextBlock x:Name="textReadyOrdersTabCount" Style="{StaticResource countElementsTabText}" Text="{Binding AllCouriers.Count}"/>
                         </Border>
                     </Grid>
                 </StackPanel>
@@ -94,16 +90,16 @@
                     </Button>-->
 
                     <!--Add new order Button-->
-                    <Button x:Name="buttonCreateOrder" Command="{Binding ShowCreateOrderDialog}" Style="{StaticResource buttonBigPrimary}">
+                    <Button x:Name="buttonCreateClientn" Command="{Binding ShowCreateClientDialog}" Style="{StaticResource buttonBigPrimary}">
                         <DockPanel Margin="10pt 5pt" >
                             <Icon:PackIconMaterialDesign Kind="Add" Width="10" Height="10" VerticalAlignment="Center"/>
-                            <TextBlock Text="Новый клиент" Style="{StaticResource textBigPrimaryButton}" Margin="2 0 0 0"/>
+                            <TextBlock x:Name="buttonCreateClientTitle" Text="Новый клиент" Style="{StaticResource textBigPrimaryButton}" Margin="2 0 0 0"/>
                         </DockPanel>
                     </Button>
 
                 </StackPanel>
 
-                <DataGrid Grid.Row="2" Name="ordersDataGrid" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=CurrentCollection}" SelectedItem="{Binding SelectedOrder}">
+                <DataGrid Grid.Row="2" Name="clientsDataGrid" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=AllClients}" SelectedItem="{Binding SelectedClient}">
 
                     <DataGrid.Resources>
                         <Style TargetType="DataGridRow">
@@ -157,82 +153,37 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding ID}"/>
 
-                        <!--<DataGridTemplateColumn IsReadOnly="True" Width="*">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Icon:PackIconMaterialDesign Kind="DateRange"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding CreatedDate, StringFormat=d}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>-->
-
                         <DataGridTemplateColumn Header="Имя" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Background="{Binding StatusBGBrush}" CornerRadius="5" Padding="5">
-                                        <TextBlock Text="{Binding StatusName}" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                                    </Border>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Background="{Binding BG}" Width="30" Height="30" Padding="5" CornerRadius="10">
+                                            <TextBlock Text="{Binding Name[0]}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                        </Border>
+                                        <TextBlock Text="{Binding Name}" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!--<DataGridTextColumn Header="Товары" Width="*" IsReadOnly="True"/>-->
+                        <DataGridTextColumn Header="Номер телефона" Binding="{Binding Phone}" Width="*" IsReadOnly="True"/>
 
-                        <DataGridTextColumn Header="Email" Binding="{Binding Client.Name}" Width="*" IsReadOnly="True"/>
-
-                        <DataGridTemplateColumn Width="auto" IsReadOnly="True">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Icon:PackIconMaterialDesign Kind="Payment"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding SumPrice}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-
-                        <DataGridTextColumn Header="Адрес забора" Binding="{Binding Pickup.Address}" Width="*" IsReadOnly="True"/>
-
-                        <DataGridTextColumn Header="Дата доставки" Binding="{Binding Pickup.Date, StringFormat=d}" Width="*" IsReadOnly="True"/>
-
-                        <DataGridTextColumn Header="Адрес доставки" Binding="{Binding Delivery.Address}" Width="*" IsReadOnly="True"/>
-
-                        <DataGridTextColumn Header="Дата доставки" Binding="{Binding Delivery.Date, StringFormat=d}" Width="*" IsReadOnly="True"/>
-
-                        <!--<DataGridTemplateColumn Width="*">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Icon:PackIconMaterialDesign Kind="Message"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Comment}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>-->
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" IsReadOnly="True"/>
 
                         <DataGridTemplateColumn Header="Действия" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Style="{StaticResource buttonEditOrder}" Command="{Binding Path=DataContext.ShowEditOrderDialog, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                        <Button Style="{StaticResource buttonEditOrder}" Command="{Binding Path=DataContext.ShowEditClientDialog, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
                                             <Icon:PackIconMaterialDesign Kind="Edit" Width="15" Height="15"/>
                                         </Button>
-                                        <Button Style="{StaticResource buttonRemoveOrder}" Margin="5 0" Command="{Binding Path=DataContext.DeleteOrder, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                        <Button Style="{StaticResource buttonRemoveOrder}" Margin="5 0" Command="{Binding Path=DataContext.DeleteClient, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
                                             <Icon:PackIconMaterialDesign Kind="Delete" Width="15" Height="15"/>
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

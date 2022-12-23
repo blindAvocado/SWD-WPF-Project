@@ -281,6 +281,8 @@
     <Compile Include="Services\DistrictService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ReportsService.cs" />
+    <Compile Include="ViewModels\ClientFormViewModel.cs" />
+    <Compile Include="ViewModels\CourierFormViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrderFormViewModel.cs" />
@@ -289,6 +291,12 @@
     <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelCommand.cs" />
+    <Compile Include="View\ClientFormView.xaml.cs">
+      <DependentUpon>ClientFormView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CourierFormView.xaml.cs">
+      <DependentUpon>CourierFormView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\InvoicePrintView.xaml.cs">
       <DependentUpon>InvoicePrintView.xaml</DependentUpon>
     </Compile>
@@ -346,6 +354,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style\UIText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClientFormView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CourierFormView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -115,5 +115,9 @@
         <Setter Property="HorizontalAlignment" Value="Right"/>
     </Style>
 
+    <Style x:Key="clientDataGridText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource primaryBrush}"/>
+        <Setter Property="Margin" Value="10 0 0 0"/>
+    </Style>
 
 </ResourceDictionary>

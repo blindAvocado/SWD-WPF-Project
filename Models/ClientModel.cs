@@ -15,6 +15,7 @@ namespace SWD_WPF_Project.Models
         private string _phone;
         private string _email;
         private decimal? _discount;
+        private string _bg;
 
         public int ID
         {
@@ -63,6 +64,16 @@ namespace SWD_WPF_Project.Models
             {
                 _discount = value;
                 OnPropertyChanged(nameof(Discount));
+            }
+        }
+
+        public string BG
+        {
+            get { return _bg; }
+            set
+            {
+                _bg = value;
+                OnPropertyChanged(nameof(BG));
             }
         }
 

@@ -12,6 +12,7 @@ namespace SWD_WPF_Project.Models
         private int _id;
         private string _name;
         private string _phone;
+        private string _bg;
 
         public int ID
         {
@@ -40,6 +41,16 @@ namespace SWD_WPF_Project.Models
             {
                 _phone = value;
                 OnPropertyChanged(nameof(Phone));
+            }
+        }
+
+        public string BG
+        {
+            get { return _bg; }
+            set
+            {
+                _bg = value;
+                OnPropertyChanged(nameof(BG));
             }
         }
 

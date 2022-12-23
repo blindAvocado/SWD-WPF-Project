@@ -158,30 +158,10 @@
                             </Style.Triggers>
                         </Style>
                     </DataGrid.Resources>
-                    
+
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn CanUserResize="False" Width="auto" IsReadOnly="True">
-                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <CheckBox/>
-                                </DataTemplate>
-                            </DataGridCheckBoxColumn.HeaderTemplate>
-                        </DataGridCheckBoxColumn>
 
                         <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding ID}"/>
-
-                        <!--<DataGridTemplateColumn IsReadOnly="True" Width="*">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Icon:PackIconMaterialDesign Kind="DateRange"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding CreatedDate, StringFormat=d}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>-->
 
                         <DataGridTemplateColumn Header="Статус" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
