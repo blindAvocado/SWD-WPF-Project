@@ -139,16 +139,17 @@ namespace SWD_WPF_Project.Services
         public void DeleteOrder(OrderModel order)
         {
             if (order.ID == 0) return;
-            Order o = db.Orders.Where(i => i.id_order == order.ID).First();
+            Order o = db.Orders.Find(order.ID);
             db.Orders.Remove(o);
             db.SaveChanges();
         }
 
-        public void DeleteOrderCargo(OrderContentModel cargo)
+        public void DeleteOrderCargo(int id)
         {
-            if (cargo.ID == 0) return;
-            OrderContent c = db.OrderContents.Where(i => i.id_orderContent == cargo.ID).First();
-            db.OrderContents.Remove(c);
+            if (id == 0) return;
+            //OrderContent c = db.OrderContents.Find(cargo.ID);
+            //db.OrderContents.Remove(c);
+            db.OrderContents.RemoveRange(db.OrderContents.Where(i => i.order_orderContent == id));
             db.SaveChanges();
         }
 

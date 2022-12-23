@@ -31,7 +31,9 @@ namespace SWD_WPF_Project.ViewModels
         public ObservableCollection<OrderStatusModel> AllStatuses { get; set; }
 
         public OrderModel SelectedOrder { get; set; }
+        public OrderContentModel SelectedCargo { get; set; }
         public ObservableCollection<OrderContentModel> CargoList { get; set; }
+        public ObservableCollection<OrderContentModel> CargoListToDelete { get; set; }
 
         public string PickupPrice
         {
@@ -82,6 +84,8 @@ namespace SWD_WPF_Project.ViewModels
             }
         }
 
+        public bool EditingExisting;
+
         private void SetAllClients()
         {
             AllClients = new ObservableCollection<ClientModel>(_peopleService.GetAllClients());
@@ -111,7 +115,23 @@ namespace SWD_WPF_Project.ViewModels
             AllCouriers = new ObservableCollection<CourierModel>(_peopleService.GetAllCouriers());
             OnPropertyChanged(nameof(AllCouriers));
         }
-        
+
+        private void SetAllCargo()
+        {
+            CargoList = new ObservableCollection<OrderContentModel>(_cargoService.GetAllCargoForOrder(SelectedOrder.ID));
+            foreach (var cargo in CargoList)
+            {
+                _cargoService.SetCargoProperties(cargo);
+                cargo.WidthStr = cargo.Width.ToString();
+                cargo.LengthStr = cargo.Length.ToString();
+                cargo.HeightStr = cargo.Height.ToString();
+                cargo.WeightStr = cargo.Weight.ToString();
+                cargo.PriceStr = cargo.Price.ToString();
+                cargo.QuantityStr = cargo.Quantity.ToString();
+            }
+        }
+
+
         private void UpdateCargoProperties()
         {
             foreach (var cargo in CargoList)
@@ -153,9 +173,12 @@ namespace SWD_WPF_Project.ViewModels
         public ICommand CreateNewCargoItem { get; }
         public ICommand SubmitOrder { get; }
         public ICommand EditOrder { get; }
+        public ICommand DeleteCargo { get; }
 
         public OrderFormViewModel()
         {
+            EditingExisting = false;
+
             AllClients = new ObservableCollection<ClientModel>();
             AllDistricts = new ObservableCollection<DistrictModel>();
             AllCargoTypes = new ObservableCollection<CargoTypeModel>();
@@ -172,8 +195,20 @@ namespace SWD_WPF_Project.ViewModels
 
             CreateNewCargoItem = new ViewModelCommand(ExecuteCreateNewCargoItemCommand);
             SubmitOrder = new ViewModelCommand(ExecuteSubmitOrderCommand);
+            DeleteCargo = new ViewModelCommand(ExecuteDeleteCargoCommand);
 
             SelectedOrder.PropertyChanged += SelectedOrder_PropertyChanged;
+        }
+
+        private void ExecuteDeleteCargoCommand(object obj)
+        {
+            if (!EditingExisting)
+                CargoList.Remove(SelectedCargo);
+            else
+            {
+                CargoListToDelete.Add(SelectedCargo);
+                CargoList.Remove(SelectedCargo);
+            }
         }
 
         private void SelectedOrder_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -201,13 +236,17 @@ namespace SWD_WPF_Project.ViewModels
 
         public OrderFormViewModel(OrderModel order)
         {
+            EditingExisting = true;
+
             AllClients = new ObservableCollection<ClientModel>();
             AllDistricts = new ObservableCollection<DistrictModel>();
             AllCargoTypes = new ObservableCollection<CargoTypeModel>();
+            CargoListToDelete = new ObservableCollection<OrderContentModel>();
 
             SelectedOrder = order;
             SelectedOrder.Cargo = _cargoService.GetAllCargoForOrder(order.ID);
-            CargoList = new ObservableCollection<OrderContentModel>(_cargoService.GetAllCargoForOrder(order.ID));
+            //CargoList = new ObservableCollection<OrderContentModel>(_cargoService.GetAllCargoForOrder(order.ID));
+            SetAllCargo();
 
             SetAllClients();
             SetAllDistricts();
@@ -217,17 +256,30 @@ namespace SWD_WPF_Project.ViewModels
 
             CreateNewCargoItem = new ViewModelCommand(ExecuteCreateNewCargoItemCommand);
             EditOrder = new ViewModelCommand(ExecuteEditOrderCommand);
+            DeleteCargo = new ViewModelCommand(ExecuteDeleteCargoCommand);
+
+            SelectedOrder.PropertyChanged += SelectedOrder_PropertyChanged;
         }
 
         private void ExecuteEditOrderCommand(object obj)
         {
             _orderService.EditOrder(SelectedOrder);
 
+            // Изменение информации о товарах
             if (CargoList.Count != 0)
             {
                 foreach (var cargo in CargoList)
                 {
                     _cargoService.EditCargo(cargo);
+                }
+            }
+
+            // Удаление товаров из БД
+            if (CargoListToDelete.Count != 0)
+            {
+                foreach (var cargo in CargoListToDelete)
+                {
+                    _cargoService.DeleteCargo(cargo);
                 }
             }
         }

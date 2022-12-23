@@ -111,7 +111,12 @@ namespace SWD_WPF_Project.ViewModels
 
         private void ExecuteDeleteOrderCommand(object obj)
         {
-            throw new NotImplementedException();
+
+            _orderService.DeleteOrderCargo(SelectedOrder.ID);
+            _orderService.DeleteOrder(SelectedOrder);
+
+            SetAllTables();
+            ExecuteShowAllOrdersCommand(null);
         }
 
         private void ExecuteShowEditOrderDialogCommand(object obj)

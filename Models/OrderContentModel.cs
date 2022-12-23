@@ -188,6 +188,7 @@ namespace SWD_WPF_Project.Models
             Height = cargo.height_orderContent;
             Weight = cargo.weight_orderContent;
             Quantity = cargo.quantity_orderContent;
+            CargoType = new CargoTypeModel();
             CargoType.ID = cargo.cargoType_orderContent;
         }
     }

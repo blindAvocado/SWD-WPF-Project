@@ -63,5 +63,25 @@ namespace SWD_WPF_Project.Services
             o.cargoType_orderContent = cargo.CargoType.ID;
             db.SaveChanges();
         }
+
+        public void DeleteCargo(OrderContentModel cargo)
+        {
+            if (cargo.ID == 0) return;
+            OrderContent c = db.OrderContents.Find(cargo.ID);
+            db.OrderContents.Remove(c);
+            db.SaveChanges();
+        }
+
+        public void SetCargoProperties(OrderContentModel cargo)
+        {
+            var c = db.OrderContents.FirstOrDefault(i => i.id_orderContent == cargo.ID);
+            cargo.Width = c.width_orderContent;
+            cargo.Length = c.length_orderContent;
+            cargo.Height = c.height_orderContent;
+            cargo.Weight = c.weight_orderContent;
+            cargo.Price = c.price_orderContent;
+            cargo.Quantity = c.quantity_orderContent;
+            cargo.CargoType.ID = c.cargoType_orderContent;
+        }
     }
 }

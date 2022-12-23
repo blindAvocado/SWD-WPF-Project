@@ -35,7 +35,7 @@ namespace DAL.Entities
                 .HasMany(e => e.Orders)
                 .WithRequired(e => e.Client)
                 .HasForeignKey(e => e.client_order)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Courier>()
                 .HasMany(e => e.Orders)
@@ -58,7 +58,7 @@ namespace DAL.Entities
                 .HasMany(e => e.OrderContents)
                 .WithRequired(e => e.Order)
                 .HasForeignKey(e => e.order_orderContent)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<OrderStatus>()
                 .HasMany(e => e.Orders)
