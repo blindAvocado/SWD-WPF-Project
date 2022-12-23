@@ -28,6 +28,7 @@ namespace SWD_WPF_Project.ViewModels
         public ObservableCollection<OrderModel> WaitingOrders { get; set; }
         public ObservableCollection<OrderModel> CurrentCollection { get; set; }
         public ObservableCollection<ClientModel> AllClients { get; set; }
+        public ObservableCollection<OrderContentModel> AllCargoForOrder { get; set; }
 
         public OrderModel SelectedOrder { get; set; }
         public Visibility Fade
@@ -50,7 +51,7 @@ namespace SWD_WPF_Project.ViewModels
                 order.Pickup.DistrictName = _orderService.GetDistrictNameByID(order.Pickup.DistrictID);
                 order.Delivery.DistrictName = _orderService.GetDistrictNameByID(order.Delivery.DistrictID);
                 order.CourierName = _peopleService.GetCourierNameById(order.Courier);
-                order.Cargo = _cargoService.GetAllCargoForOrder(order.ID);
+                //order.Cargo = _cargoService.GetAllCargoForOrder(order.ID);
 
                 if (order.Cargo.Count != 0)
                 {
@@ -62,9 +63,26 @@ namespace SWD_WPF_Project.ViewModels
             }
         }
 
+        private void SetAllCargoForOrder(ObservableCollection<OrderModel> list)
+        {
+            foreach (var order in list)
+            {
+                AllCargoForOrder = new ObservableCollection<OrderContentModel>(_cargoService.GetAllCargoForOrder(order.ID));
+                foreach (var cargo in AllCargoForOrder)
+                {
+                    _cargoService.SetCargoProperties(cargo);
+                }
+
+                order.Cargo = AllCargoForOrder.ToList();
+            }
+
+
+        }
+
         private void SetAllOrders()
         {
             AllOrders = new ObservableCollection<OrderModel>(_orderService.GetAllOrders());
+            SetAllCargoForOrder(AllOrders);
 
             SetAllOrderProperties(AllOrders);
 
@@ -74,6 +92,7 @@ namespace SWD_WPF_Project.ViewModels
         private void SetReadyOrders()
         {
             ReadyOrders = new ObservableCollection<OrderModel>(_orderService.GetReadyOrders());
+            SetAllCargoForOrder(ReadyOrders);
 
             SetAllOrderProperties(ReadyOrders);
 
@@ -83,6 +102,7 @@ namespace SWD_WPF_Project.ViewModels
         private void SetWaitingOrders()
         {
             WaitingOrders = new ObservableCollection<OrderModel>(_orderService.GetWaitingOrders());
+            SetAllCargoForOrder(WaitingOrders);
 
             SetAllOrderProperties(WaitingOrders);
 
