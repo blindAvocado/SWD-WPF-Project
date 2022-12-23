@@ -10,6 +10,7 @@ using SWD_WPF_Project.Models;
 using SWD_WPF_Project.Services;
 using SWD_WPF_Project.View;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SWD_WPF_Project.ViewModels
 {
@@ -17,6 +18,10 @@ namespace SWD_WPF_Project.ViewModels
     {
         private readonly OrderService _orderService = new OrderService();
         private readonly PeopleService _clientService = new PeopleService();
+        private readonly CargoService _cargoService = new CargoService();
+        private readonly PeopleService _peopleService = new PeopleService();
+
+        private Visibility _fade;
 
         public ObservableCollection<OrderModel> AllOrders { get; set; }
         public ObservableCollection<OrderModel> ReadyOrders { get; set; }
@@ -25,17 +30,43 @@ namespace SWD_WPF_Project.ViewModels
         public ObservableCollection<ClientModel> AllClients { get; set; }
 
         public OrderModel SelectedOrder { get; set; }
-        
-        private void SetAllOrders()
+        public Visibility Fade
         {
-            AllOrders = new ObservableCollection<OrderModel>(_orderService.GetAllOrders());
-
-            foreach (var order in AllOrders)
+            get { return _fade; }
+            set
+            {
+                _fade = value;
+                OnPropertyChanged(nameof(Fade));
+            }
+        }
+        
+        private void SetAllOrderProperties(ObservableCollection<OrderModel> Orders)
+        {
+            foreach (var order in Orders)
             {
                 order.Client = _clientService.GetClientModelByID(order.Client.ID);
                 order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
                 order.StatusBGBrush = _orderService.GetOrderStatusBGColor(order.StatusID);
+                order.Pickup.DistrictName = _orderService.GetDistrictNameByID(order.Pickup.DistrictID);
+                order.Delivery.DistrictName = _orderService.GetDistrictNameByID(order.Delivery.DistrictID);
+                order.CourierName = _peopleService.GetCourierNameById(order.Courier);
+                order.Cargo = _cargoService.GetAllCargoForOrder(order.ID);
+
+                if (order.Cargo.Count != 0)
+                {
+                    foreach (var cargo in order.Cargo)
+                    {
+                        cargo.CargoType.Name = _cargoService.GetCargoTypeNameByID(cargo.CargoType.ID);
+                    }
+                }
             }
+        }
+
+        private void SetAllOrders()
+        {
+            AllOrders = new ObservableCollection<OrderModel>(_orderService.GetAllOrders());
+
+            SetAllOrderProperties(AllOrders);
 
             OnPropertyChanged(nameof(AllOrders));
         }
@@ -44,12 +75,7 @@ namespace SWD_WPF_Project.ViewModels
         {
             ReadyOrders = new ObservableCollection<OrderModel>(_orderService.GetReadyOrders());
 
-            foreach (var order in ReadyOrders)
-            {
-                order.Client = _clientService.GetClientModelByID(order.Client.ID);
-                order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
-                order.StatusBGBrush = _orderService.GetOrderStatusBGColor(order.StatusID);
-            }
+            SetAllOrderProperties(ReadyOrders);
 
             OnPropertyChanged(nameof(ReadyOrders));
         }
@@ -58,12 +84,7 @@ namespace SWD_WPF_Project.ViewModels
         {
             WaitingOrders = new ObservableCollection<OrderModel>(_orderService.GetWaitingOrders());
 
-            foreach (var order in WaitingOrders)
-            {
-                order.Client = _clientService.GetClientModelByID(order.Client.ID);
-                order.StatusName = _orderService.GetStatusNameByID(order.StatusID);
-                order.StatusBGBrush = _orderService.GetOrderStatusBGColor(order.StatusID);
-            }
+            SetAllOrderProperties(WaitingOrders);
 
             OnPropertyChanged(nameof(WaitingOrders));
         }
@@ -102,6 +123,7 @@ namespace SWD_WPF_Project.ViewModels
             SetAllTables();
             SetAllClients();
 
+            Fade = Visibility.Collapsed;
             ExecuteShowAllOrdersCommand(null);
 
             ShowCreateOrderDialog = new ViewModelCommand(ExecuteShowCreateOrderDialogCommand);
@@ -121,8 +143,10 @@ namespace SWD_WPF_Project.ViewModels
 
         private void ExecuteShowEditOrderDialogCommand(object obj)
         {
+            Fade = Visibility.Visible;
             var dialog = new OrderFormView(SelectedOrder);
             dialog.ShowDialog();
+            Fade = Visibility.Collapsed;
 
             SetAllTables();
             ExecuteShowAllOrdersCommand(null);
@@ -130,8 +154,10 @@ namespace SWD_WPF_Project.ViewModels
 
         private void ExecuteShowCreateOrderDialogCommand(object obj)
         {
+            Fade = Visibility.Visible;
             var dialog = new OrderFormView();
             dialog.ShowDialog();
+            Fade = Visibility.Collapsed;
 
             SetAllTables();
             ExecuteShowAllOrdersCommand(null);

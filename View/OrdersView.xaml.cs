@@ -33,8 +33,10 @@ namespace SWD_WPF_Project.View
             {
                 var row = e.Source as DataGridRow;
 
+                this.DataContext.GetType().GetProperty("Fade").SetValue(this.DataContext, Visibility.Visible, null);
                 OrderDetailsView detailsWindow = new OrderDetailsView(row.Item);
                 detailsWindow.ShowDialog();
+                this.DataContext.GetType().GetProperty("Fade").SetValue(this.DataContext, Visibility.Collapsed, null);
             }
         }
     }

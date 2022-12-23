@@ -105,15 +105,15 @@
                                 <WrapPanel Grid.Row="1" Margin="0 25 0 0" Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Style="{StaticResource fieldSectionText}" Text="Район:" Margin="0 0 10 0"/>
-                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding PickupDistrictID}"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Pickup.DistrictName}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Style="{StaticResource fieldSectionText}" Text="Улица, дом, кв.:" Margin="0 0 10 0"/>
-                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding PickupAddress}"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Pickup.Address}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Style="{StaticResource fieldSectionText}" Text="Дата:" Margin="0 0 10 0"/>
-                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding PickupDate}"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Pickup.Date}"/>
                                     </StackPanel>
                                 </WrapPanel>
                             </Grid>
@@ -124,15 +124,15 @@
                                 <WrapPanel Grid.Row="1" Margin="0 25 0 0" Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Style="{StaticResource fieldSectionText}" Text="Район:" Margin="0 0 10 0"/>
-                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding DeliveryDistrictID}"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Delivery.DistrictName}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Style="{StaticResource fieldSectionText}" Text="Улица, дом, кв.:" Margin="0 0 10 0"/>
-                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding DeliveryAddress}"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Delivery.Address}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Style="{StaticResource fieldSectionText}" Text="Дата:" Margin="0 0 10 0"/>
-                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding DeliveryDate}"/>
+                                        <TextBlock Style="{StaticResource fieldSectionText}" Text="{Binding Delivery.Date}"/>
                                     </StackPanel>
                                 </WrapPanel>
                             </Grid>
@@ -205,11 +205,13 @@
 
                     <!--Submit-->
                     <StackPanel Grid.Row="8" Orientation="Horizontal" FlowDirection="RightToLeft">
-                        <Button x:Name="buttonPrintReport" Content="Распечатать в PDF" Style="{StaticResource buttonSubmitWindow}"></Button>
+                        <Button x:Name="buttonPrintReport" Content="Распечатать в PDF" Style="{StaticResource buttonSubmitWindow}" Click="buttonPrintReport_Click"></Button>
                     </StackPanel>
                 </Grid>
             </ScrollViewer>
         </Border>
+
+        <!--<local:InvoicePrintView Grid.RowSpan="2" Visibility="Visible" Panel.ZIndex="20"/>-->
 
     </Grid>
 </Window>

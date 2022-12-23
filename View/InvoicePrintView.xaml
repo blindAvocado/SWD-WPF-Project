@@ -1,0 +1,126 @@
+﻿<Window x:Class="SWD_WPF_Project.View.InvoicePrintView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SWD_WPF_Project.View"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d"
+             WindowStyle="None"
+             WindowStartupLocation="CenterScreen"
+             Background="White"
+             AllowsTransparency="True"
+             ResizeMode="NoResize"
+             ContentRendered="Window_ContentRendered"
+             Height="842" Width="595">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="{StaticResource accentBrush}">
+            <Border Padding="20 35">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Bottom">
+                        <Icon:PackIconMaterial Kind="TruckFastOutline" Width="60" Height="40" Foreground="White"/>
+                        <TextBlock Style="{StaticResource invoiceDocumentTitle}" Text="Договор" Margin="0 5 0 0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock Style="{StaticResource invoiceClient}" Text="{Binding Client.Name}" Margin="0 0 0 10" FontSize="24"/>
+                        <TextBlock Style="{StaticResource invoiceClient}" Text="{Binding Client.Phone}" Margin="0 0 0 5"/>
+                        <TextBlock Style="{StaticResource invoiceClient}" Text="{Binding Client.Email}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="White">
+            <Border Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" FontWeight="700" Text="Забор:"/>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Pickup.DistrictName}"/>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Pickup.Address}" Margin="0 5 0 0"/>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Pickup.Date, StringFormat=d}" Margin="0 5 0 0"/>
+                            </StackPanel>
+                            <StackPanel Margin="0 10 0 0">
+                                <TextBlock Style="{StaticResource invoiceLogistics}" FontWeight="700" Text="Доставка:"/>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Delivery.DistrictName}"/>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Delivery.Address}" Margin="0 5 0 0"/>
+                                <TextBlock Style="{StaticResource invoiceLogistics}" Text="{Binding Delivery.Date, StringFormat=d}" Margin="0 5 0 0"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource invoiceOrderInfo}" FontWeight="700" Text="Номер заказа:"/>
+                                <TextBlock Style="{StaticResource invoiceOrderInfo}" Text="{Binding ID}" Margin="0 5 0 0"/>
+                            </StackPanel>
+                            <StackPanel Margin="0 10 0 0">
+                                <TextBlock Style="{StaticResource invoiceOrderInfo}" FontWeight="700" Text="Дата заказа:"/>
+                                <TextBlock Style="{StaticResource invoiceOrderInfo}" Text="{Binding CreatedDate, StringFormat=d}" Margin="0 5 0 0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <Separator Grid.Row="1" Margin="0 15 0 0" Background="{StaticResource bgDarkBrush}"/>
+
+                    <DataGrid Grid.Row="2" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" Margin="0 10 0 0" AutoGenerateColumns="False" CanUserAddRows="False" Name="dataGridCargo" ItemsSource="{Binding Cargo}" HorizontalScrollBarVisibility="Auto" BorderBrush="Transparent" BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Тип груза" Width="150" Binding="{Binding CargoType.Name}"/>
+                            <DataGridTextColumn Header="Параметры" Width="120" Binding="{Binding Dimensions}"/>
+                            <DataGridTextColumn Header="Вес" Width="75" Binding="{Binding Weight}"/>
+                            <DataGridTextColumn Header="Стоимость" Width="100" Binding="{Binding Price}"/>
+                            <DataGridTextColumn Header="Кол-во" Width="75" Binding="{Binding Quantity}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </Grid>    
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Background="{StaticResource bgLightBrush}">
+                <StackPanel Orientation="Vertical" Margin="20 15">
+                    <TextBlock Style="{StaticResource invoiceComment}" Text="Комментарий к заказу:"/>
+                    <TextBlock Style="{StaticResource invoiceComment}" FontWeight="Light" Text="{Binding Comment}" TextWrapping="Wrap" Margin="0 10 0 0" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="1" Background="{StaticResource accentBrush}">
+                <StackPanel Orientation="Vertical" Margin="20 25" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource invoiceTotal}" Text="ИТОГО"/>
+                    <TextBlock Style="{StaticResource invoiceTotal}" FontSize="28" Text="{Binding SumPrice}"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

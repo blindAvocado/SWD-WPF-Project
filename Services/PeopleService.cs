@@ -44,5 +44,11 @@ namespace SWD_WPF_Project.Services
         {
             return db.Couriers.AsEnumerable().Select(c => new CourierModel(c)).ToList();
         }
+
+        public string GetCourierNameById(int? id)
+        {
+            if (id == 0) return "Не задан";
+            return db.Couriers.Where(i => i.id_courier == id).Select(i => i.name_courier).SingleOrDefault();
+        }
     }
 }

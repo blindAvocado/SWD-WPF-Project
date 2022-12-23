@@ -20,6 +20,7 @@ namespace SWD_WPF_Project.Models
         private LogisticsModel _delivery;
         private decimal _sumPrice;
         private int? _courier;
+        private string _courierName;
         private int? _transport;
         private string _comment;
         private List<OrderContentModel> _cargo;
@@ -134,6 +135,16 @@ namespace SWD_WPF_Project.Models
             {
                 _courier = value;
                 OnPropertyChanged(nameof(Courier));
+            }
+        }
+
+        public string CourierName
+        {
+            get { return _courierName; }
+            set
+            {
+                _courierName = value;
+                OnPropertyChanged(CourierName);
             }
         }
 

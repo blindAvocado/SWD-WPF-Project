@@ -13,9 +13,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
-            <RowDefinition Height="155*"/>
-            <RowDefinition Height="456*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <Rectangle Grid.RowSpan="3" Width="5000" Height="5000" Fill="Black" Opacity="0.5" Panel.ZIndex="10" Margin="-2500" Visibility="{Binding Fade}" x:Name="Fade"/>
 
         <Border Grid.Row="0" Background="White">
             <StackPanel Orientation="Horizontal" Margin="20">

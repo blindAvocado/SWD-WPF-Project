@@ -133,7 +133,6 @@ namespace SWD_WPF_Project.ViewModels
             }
         }
 
-
         private void UpdateCargoProperties()
         {
             foreach (var cargo in CargoList)

@@ -24,6 +24,7 @@ namespace SWD_WPF_Project.View
             InitializeComponent();
 
             DataContext = order;
+            dataGridCargo.DataContext = order;
         }
 
         private void windowControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -34,6 +35,13 @@ namespace SWD_WPF_Project.View
         private void buttonCloseWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
+        }
+
+        private void buttonPrintReport_Click(object sender, RoutedEventArgs e)
+        {
+            Window invoice = new InvoicePrintView(DataContext);
+            invoice.Show();
+            invoice.Close();
         }
     }
 }

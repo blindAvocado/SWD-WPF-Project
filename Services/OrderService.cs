@@ -72,6 +72,11 @@ namespace SWD_WPF_Project.Services
             return (Brush)converter.ConvertFromString("#757575");
         }
 
+        public string GetDistrictNameByID(int id)
+        {
+            return db.Districts.Where(i => i.id_district == id).Select(i => i.name_district).SingleOrDefault();
+        }
+
         public void AddOrder(OrderModel order)
         {
             var o = new Order()

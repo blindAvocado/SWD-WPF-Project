@@ -24,5 +24,7 @@ namespace SWD_WPF_Project.View
         {
             InitializeComponent();
         }
+
+
     }
 }
