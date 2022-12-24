@@ -175,6 +175,62 @@ namespace SWD_WPF_Project.ViewModels
         public ICommand EditOrder { get; }
         public ICommand CreateNewCargoItem { get; }
         public ICommand DeleteCargo { get; }
+        
+        private bool CargoValidation()
+        {
+            bool flag = true;
+
+            if (CargoList.Count != 0)
+            {
+                foreach (var cargo in CargoList)
+                {
+                    if (cargo.LengthStr == null || cargo.WidthStr == null
+                        || cargo.HeightStr == null || cargo.PriceStr == null
+                        || cargo.QuantityStr == null || cargo.WeightStr == null)
+                    {
+                        MessageBox.Show("Ошибка при добавлении товара");
+                        flag = false;
+                    }
+
+                    if (cargo.LengthStr.Replace(" ", "").Length == 0 || cargo.WidthStr.Replace(" ", "").Length == 0
+                        || cargo.HeightStr.Replace(" ", "").Length == 0 || cargo.PriceStr.Replace(" ", "").Length == 0
+                        || cargo.QuantityStr.Replace(" ", "").Length == 0 || cargo.WeightStr.Replace(" ", "").Length == 0)
+                    {
+
+                        MessageBox.Show("Ошибка при добавлении товара");
+                        flag = false;
+                    }
+
+                    double temp = 0;
+                    decimal temp1 = 0;
+                    int temp2 = 0;
+
+                    if (!Double.TryParse(cargo.WidthStr, out temp))
+                        flag = false;
+
+                    if (!Double.TryParse(cargo.WidthStr, out temp))
+                        flag = false;
+
+                    if (!Double.TryParse(cargo.LengthStr, out temp))
+                        flag = false;
+
+                    if (!Double.TryParse(cargo.HeightStr, out temp))
+                        flag = false;
+
+                    if (!Double.TryParse(cargo.WeightStr, out temp))
+                        flag = false;
+
+                    if (!Decimal.TryParse(cargo.PriceStr, out temp1))
+                        flag = false;
+
+                    if (!Int32.TryParse(cargo.QuantityStr, out temp2))
+                        flag = false;
+                }
+            }
+
+            return flag;
+        }
+
 
         public OrderFormViewModel()
         {
@@ -223,6 +279,12 @@ namespace SWD_WPF_Project.ViewModels
 
         private void ExecuteSubmitOrderCommand(object obj)
         {
+            if (!CargoValidation())
+            {
+                MessageBox.Show("Ошибка при добавлении товара");
+                return;
+            }
+
             _orderService.AddOrder(SelectedOrder);
 
             int i = _orderService.GetLastIndex();
@@ -273,6 +335,12 @@ namespace SWD_WPF_Project.ViewModels
         {
             SelectedOrder.Client = AllClients[SelectedClientI];
             _orderService.EditOrder(SelectedOrder);
+
+            if (!CargoValidation())
+            {
+                MessageBox.Show("Ошибка при изменении товара");
+                return;
+            }
 
             // Изменение информации о товарах
             if (CargoList.Count != 0)
