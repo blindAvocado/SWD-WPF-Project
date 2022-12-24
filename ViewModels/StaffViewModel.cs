@@ -17,6 +17,8 @@ namespace SWD_WPF_Project.ViewModels
     public class StaffViewModel : ViewModelBase
     {
         private readonly PeopleService _peopleService = new PeopleService();
+        private readonly OrderService _orderService = new OrderService();
+        private readonly CargoService _cargoService = new CargoService();
         public ObservableCollection<ClientModel> AllClients { get; set; }
         public ObservableCollection<CourierModel> AllCouriers { get; set; }
 
@@ -139,12 +141,45 @@ namespace SWD_WPF_Project.ViewModels
 
         private void ExecuteDeleteCourierCommand(object obj)
         {
-            throw new NotImplementedException();
+            //найти все заказы и обнулить
+            //удалить курьера
+
+            var orderList = _orderService.GetAllOrdersByCourierID(SelectedCourier.ID);
+            foreach (var order in orderList)
+            {
+                order.Courier = null;
+                _orderService.EditOrder(order);
+            }
+
+            _peopleService.DeleteCourier(SelectedCourier);
+
+            SetAllCouriers();
+            ExecuteShowAllCouriersCommand(null);
         }
 
         private void ExecuteDeleteClientCommand(object obj)
         {
-            throw new NotImplementedException();
+            //найти все заказы
+            //найти все товары и удалить
+            //удалить заказы
+            //удалить клиента
+
+            var orderList = _orderService.GetAllOrdersByClientID(SelectedClient.ID);
+            foreach (var order in orderList)
+            {
+                var cargoList = _cargoService.GetAllCargoForOrder(order.ID);
+                foreach (var cargo in cargoList)
+                {
+                    _cargoService.DeleteCargo(cargo);
+                }
+
+                _orderService.DeleteOrder(order);
+            }
+
+            _peopleService.DeleteClient(SelectedClient);
+
+            SetAllClients();
+            ExecuteShowAllClientsCommand(null);
         }
 
         private void ExecuteShowEditCourierDialogCommand(object obj)

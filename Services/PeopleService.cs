@@ -80,6 +80,14 @@ namespace SWD_WPF_Project.Services
             db.Entry(c).Reload();
         }
 
+        public void DeleteClient(ClientModel client)
+        {
+            if (client.ID == 0) return;
+            Client c = db.Clients.Find(client.ID);
+            db.Clients.Remove(c);
+            db.SaveChanges();
+        }
+
         public void AddCourier(CourierModel courier)
         {
             var c = new Courier()
@@ -104,6 +112,14 @@ namespace SWD_WPF_Project.Services
                 db.SaveChanges();
             }
             db.Entry(c).Reload();
+        }
+
+        public void DeleteCourier(CourierModel courier)
+        {
+            if (courier.ID == 0) return;
+            Courier c = db.Couriers.Find(courier.ID);
+            db.Couriers.Remove(c);
+            db.SaveChanges();
         }
 
         public string GetRandomBGColor()

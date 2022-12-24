@@ -31,6 +31,11 @@ namespace SWD_WPF_Project.Services
             return db.Orders.AsEnumerable().Select(o => new OrderModel(o)).Where(c => c.Client.ID == id).ToList();
         }
 
+        public List<OrderModel> GetAllOrdersByCourierID(int id)
+        {
+            return db.Orders.AsEnumerable().Select(o => new OrderModel(o)).Where(c => c.Courier == id).ToList();
+        }
+
         public List<OrderModel> GetWaitingOrders()
         {
             return db.Orders.AsEnumerable().Select(o => new OrderModel(o)).Where(s => s.StatusID == 2).ToList();
